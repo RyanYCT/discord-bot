@@ -15,6 +15,15 @@ class MessageHandler(commands.Cog):
     @staticmethod
     def on_chance(percent):
         return random.randint(1, 100) <= percent
+    
+    @commands.hybrid_command(name="forward", description="forward <message>")
+    async def forward(self, ctx, *, message):
+        try:
+            await ctx.channel.send(message)
+            await ctx.send(message, ephemeral=True)
+        
+        except Exception as e:
+            logger.exception("Failed to forward message: %s", e)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -34,7 +43,30 @@ class MessageHandler(commands.Cog):
             reply = False
             draft = ""
 
+            # Message included all keywords in a topic
+            logger.debug("Message included all keywords in a topic")
+            topics = list(self.chat["all"]["topic"].keys())
+            for topic in topics:
+                keywords = list(self.chat["all"]["topic"][topic]["keyword"])
+                if all(word in message.content for word in keywords):
+                    logger.debug("case message contains all of topic keyword")
+                    reply = self.on_chance(percent=100)
+                    draft = random.choice(self.chat["all"]["topic"][topic]["reply"])
+                    break
+
+            # Message included any keywords in a topic
+            logger.debug("Message included any keywords in a topic")
+            topics = list(self.chat["any"]["topic"].keys())
+            for topic in topics:
+                keywords = list(self.chat["any"]["topic"][topic]["keyword"])
+                if any(word in message.content for word in keywords):
+                    logger.debug("case message contains any of topic keyword")
+                    reply = self.on_chance(percent=66)
+                    draft = random.choice(self.chat["any"]["topic"][topic]["reply"])
+                    break
+
             # Message send by a VIP
+            logger.debug("Message send by a VIP")
             match message.author.id:
                 # VIP send message
                 case sakuratoy if message.author.id == self.chat["sakuratoy"]["id"]:
@@ -54,10 +86,9 @@ class MessageHandler(commands.Cog):
                 case _:
                     pass
 
-
-        # NOTE VIP mentioned - unit test: PASS
             # Message mentioned a VIP
-            # message.mentions include @user and reply to user
+            logger.debug("Message mentioned a VIP")
+            # NOTE message.mentions include @user and reply to user
             if len(message.mentions) > 0:
                 logger.debug("message mentioned someone")
                 for member in message.mentions:
@@ -70,12 +101,12 @@ class MessageHandler(commands.Cog):
 
                         case usagiyaki if member.id == self.chat["usagiyaki"]["id"]:
                             logger.debug("case VIP usagiyaki be mentioned")
-                            reply = self.on_chance(percent=87)
+                            reply = self.on_chance(percent=66)
                             draft = random.choice(self.chat["usagiyaki"]["topic"]["be_mentioned"]["reply"])
 
                         case captainfmafrica if member.id == self.chat["captainfmafrica"]["id"]:
                             logger.debug("case VIP captainfmafrica be mentioned")
-                            reply = self.on_chance(percent=87)
+                            reply = self.on_chance(percent=66)
                             draft = random.choice(self.chat["captainfmafrica"]["topic"]["be_mentioned"]["reply"])
 
                         case _:
@@ -87,17 +118,7 @@ class MessageHandler(commands.Cog):
 
             if reply:
                 await message.channel.send(draft)
-        # NOTE VIP mentioned - unit test: PASS
-            # # Message with keyword
-            # keywords = list(self.chat["keyword"].keys())
-            # if any(words in message.content for words in self.chat[keywords]["keyword"]):
-            #     logger.debug("Message with keyword detected")
-            #     reply = self.on_chance(percent=100)
-            #     draft = random.choice(self.chat[keywords]["reply"])
 
-            # if reply:
-            #     draft = random.choice(self.chat["reply"])
-            #     await message.channel.send(draft)
 
         logger.debug("^^^^^^^^^^^^^ message handled ^^^^^^^^^^^^")
 

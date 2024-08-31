@@ -14,7 +14,7 @@ class ExtensionManager(commands.Cog):
         self.msg = utilities.load_json(settings.EXTENSION_MESSAGE_JSON)
 
     @commands.hybrid_command(name="load", help="load <filename>")
-    @commands.has_any_role(settings.ADMIN_ROLE_ID, settings.TESTER_ROLE_ID)
+    # @commands.has_any_role(settings.ADMIN_ROLE_ID, settings.TESTER_ROLE_ID)
     @commands.is_owner()
     async def load(self, ctx, extension):
         """
@@ -56,6 +56,7 @@ class ExtensionManager(commands.Cog):
             await load_helper(extension)
 
     @commands.hybrid_command(name="unload", help="unload <filename>")
+    # @commands.has_any_role(settings.ADMIN_ROLE_ID, settings.TESTER_ROLE_ID)
     @commands.is_owner()
     async def unload(self, ctx, extension):
         """
@@ -96,7 +97,8 @@ class ExtensionManager(commands.Cog):
             await unload_helper(extension)
 
     @commands.hybrid_command(name="reload", help="reload <filename>")
-    @commands.has_any_role(settings.ADMIN_ROLE_ID, settings.TESTER_ROLE_ID)
+    # @commands.has_any_role(settings.ADMIN_ROLE_ID, settings.TESTER_ROLE_ID)
+    @commands.is_owner()
     async def reload(self, ctx, extension):
         """
         Reload extension in the bot.

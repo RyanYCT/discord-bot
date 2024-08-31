@@ -68,7 +68,7 @@ class BotManager(commands.Cog):
             value += f"{cog}\n"
         embed.add_field(name=name, value=value, inline=False)
 
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(name="set_game", help="set_game <name>")
     @commands.is_owner()

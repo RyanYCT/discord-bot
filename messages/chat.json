@@ -1,67 +1,75 @@
 {
-    "bad": {
-        "keyword": ["爛"],
-        "reply": ["你超爛"]
+    "all": {
+        "topic": {
+            "breakfast": {
+                "keyword": ["早餐", "吃", "甚麼", "?"], 
+                "reply": ["我DC有貼 我剛的早餐"]
+            }, 
+            "caphras": {
+                "keyword": ["卡普", "階", "?"], 
+                "reply": ["```\n防具10階: 7224\n樹甲10階: 8260\n副武 7階: 4800\n副武14階: 15673\n副武19階: 26733\n```"]
+            }, 
+            "dark_hunger": {
+                "keyword": ["吞", "層", "?"], 
+                "reply": "```\nCurrent FS    Increase\n100 ~ 105     15\n106 ~ 109     14\n110 ~ 116     13\n117 ~ 121     12\n122 ~ 129     11\n130 ~ 139     10\n140 ~ 151      9\n152 ~ 164      8\n165 ~ 183      7\n184 ~ 198      6\n199 ~ 218      5\n219 ~ 249      4\n250 ~ 279      3\n280 ~ 298      2\n299            1\n```"
+            }
+        }
     }, 
-    "who_bad": {
-        "keyword": ["誰爛"], 
-        "reply": ["{mention} 他超爛"]
-    }, 
-    "breakfast": {
-        "keyword": ["早餐", "吃", "甚麼", "?"], 
-        "reply": ["我DC有貼 我剛的早餐"]
-    }, 
-    "caphras": {
-        "keyword": ["卡普", "階", "?"], 
-        "reply": ["```\n防具10階: 7224\n樹甲10階: 8260\n副武 7階: 4800\n副武14階: 15673\n副武19階: 26733\n```"]
-    }, 
-    "congrats": {
-        "keyword": ["恭喜", "有狗"], 
-        "reply": [
-            "777", 
-            "恭喜", 
-            "有狗", 
-            "汪汪", 
-            "https://tenor.com/view/%E0%B8%AD%E0%B8%B1%E0%B8%A5%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%B2-bdo-gif-25041890", 
-            "https://media.discordapp.net/attachments/699124139373494322/975785352121950208/jnusp-onbgq.gif?ex=668a0ead&is=6688bd2d&hm=c5ba6b5d624f7fcbe31ab26dab7f9db395090a60080dd97b064e7f1c8e2d489d&", 
-            "https://cdn.discordapp.com/attachments/1253741682113908828/1258734444139774016/1221345675329929237.png?ex=6689c80d&is=6688768d&hm=e9566c6f8c12a4446245c4e7786cf394f049250e54f04592297890713d153de2&", 
-            "https://cdn.discordapp.com/attachments/1253741682113908828/1258730977295859813/1201401767590625280.gif?ex=6689c4d3&is=66887353&hm=5c179457000027231d5feb00bbb50f0f41775bd10129dfe9d072c73ad620128c&"
-        ]
-    }, 
-    "cool": {
-        "keyword": ["我帥", "帥嗎"], 
-        "reply": ["你超帥", "你帥炸了"]
-    }, 
-    "dark_hunger": {
-        "keyword": [["吞", "層", "?"], ["吞", "錢", "?"]], 
-        "reply": "```\nCurrent FS    Increase\n100 ~ 105     15\n106 ~ 109     14\n110 ~ 116     13\n117 ~ 121     12\n122 ~ 129     11\n130 ~ 139     10\n140 ~ 151      9\n152 ~ 164      8\n165 ~ 183      7\n184 ~ 198      6\n199 ~ 218      5\n219 ~ 249      4\n250 ~ 279      3\n280 ~ 298      2\n299            1\n```"
-    }, 
-    "dead": {
-        "keyword": ["\\|/", "＼｜／", "死了"], 
-        "reply": [
-            "https://cdn.discordapp.com/attachments/1253741682113908828/1258731663882584096/1212265853081616384.png?ex=66891cb6&is=6687cb36&hm=fb6ff6de4b0fbaa93524aee17b2a66cf9f2bafaea6933253ce6b03a25c1bf28e&", 
-            "https://cdn.discordapp.com/attachments/1253741682113908828/1258730323609391216/947088546899054642.png?ex=66891b77&is=6687c9f7&hm=6db3d78f848b7b1230af482434af17b916e2a9b4c19093c10b7fd644d4735c94&"
-        ]
-    }, 
-    "good_morning": {
-        "keyword": ["早安", "安安"], 
-        "reply": [
-            "https://tenor.com/view/alpaca-black-desert-online-hello-gif-24377649"
-        ]
-    }, 
-    "good_night": {
-        "keyword": ["晚安", "睡了", "好睏"], 
-        "reply": [
-            "https://tenor.com/view/bdo-%E0%B8%AD%E0%B8%B1%E0%B8%A5%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%B2-gif-25041888"
-        ]
-    }, 
-    "hentai": {
-        "keyword": ["好色", "色色", "變態"], 
-        "reply": [
-            "不可以色色", 
-            "https://tenor.com/view/dog-shiba-inu-gif-25175825", 
-            "https://tenor.com/view/%E4%B8%8D%E5%8F%AF%E4%BB%A5%E8%89%B2%E8%89%B2-gif-23421575"
-        ]
+    "any": {
+        "topic": {
+            "who_bad": {
+                "keyword": ["誰爛"], 
+                "reply": ["<@388262701605847040> 他超爛"]
+            }, 
+            "bad": {
+                "keyword": ["爛"],
+                "reply": ["你超爛"]
+            }, 
+            "congrats": {
+                "keyword": ["恭喜", "有狗"], 
+                "reply": [
+                    "777", 
+                    "恭喜", 
+                    "有狗", 
+                    "汪汪", 
+                    "https://tenor.com/view/%E0%B8%AD%E0%B8%B1%E0%B8%A5%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%B2-bdo-gif-25041890", 
+                    "https://media.discordapp.net/attachments/699124139373494322/975785352121950208/jnusp-onbgq.gif?ex=668a0ead&is=6688bd2d&hm=c5ba6b5d624f7fcbe31ab26dab7f9db395090a60080dd97b064e7f1c8e2d489d&", 
+                    "https://cdn.discordapp.com/attachments/1253741682113908828/1258734444139774016/1221345675329929237.png?ex=6689c80d&is=6688768d&hm=e9566c6f8c12a4446245c4e7786cf394f049250e54f04592297890713d153de2&", 
+                    "https://cdn.discordapp.com/attachments/1253741682113908828/1258730977295859813/1201401767590625280.gif?ex=6689c4d3&is=66887353&hm=5c179457000027231d5feb00bbb50f0f41775bd10129dfe9d072c73ad620128c&"
+                ]
+            }, 
+            "cool": {
+                "keyword": ["我帥", "帥嗎"], 
+                "reply": ["你超帥", "你帥炸了"]
+            }, 
+            "dead": {
+                "keyword": ["\\|/", "＼｜／", "死了"], 
+                "reply": [
+                    "https://cdn.discordapp.com/attachments/1253741682113908828/1258731663882584096/1212265853081616384.png?ex=66891cb6&is=6687cb36&hm=fb6ff6de4b0fbaa93524aee17b2a66cf9f2bafaea6933253ce6b03a25c1bf28e&", 
+                    "https://cdn.discordapp.com/attachments/1253741682113908828/1258730323609391216/947088546899054642.png?ex=66891b77&is=6687c9f7&hm=6db3d78f848b7b1230af482434af17b916e2a9b4c19093c10b7fd644d4735c94&"
+                ]
+            }, 
+            "good_morning": {
+                "keyword": ["早安", "安安"], 
+                "reply": [
+                    "https://tenor.com/view/alpaca-black-desert-online-hello-gif-24377649"
+                ]
+            }, 
+            "good_night": {
+                "keyword": ["晚安", "睡了", "好睏"], 
+                "reply": [
+                    "https://tenor.com/view/bdo-%E0%B8%AD%E0%B8%B1%E0%B8%A5%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%B2-gif-25041888"
+                ]
+            }, 
+            "hentai": {
+                "keyword": ["好色", "色色", "變態"], 
+                "reply": [
+                    "不可以色色", 
+                    "https://tenor.com/view/dog-shiba-inu-gif-25175825", 
+                    "https://tenor.com/view/%E4%B8%8D%E5%8F%AF%E4%BB%A5%E8%89%B2%E8%89%B2-gif-23421575"
+                ]
+            }
+        }
     }, 
     "bot": {
         "id": 1194966174983798854, 
@@ -86,7 +94,7 @@
         "topic": {
             "be_mentioned": {
                 "keyword": ["<@310690328804065281>", "狗哥"], 
-                "reply": ["<@310690328804065281> Boss, 有人找你", "<@310690328804065281> Boss, 有人講你壞話", "https://cdn.discordapp.com/emojis/1235995934941511771.webp?size=96&quality=lossless"]
+                "reply": ["https://cdn.discordapp.com/emojis/1235995934941511771.webp?size=96&quality=lossless"]
             }
         }
     }, 
