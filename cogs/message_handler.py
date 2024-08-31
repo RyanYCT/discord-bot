@@ -18,6 +18,16 @@ class MessageHandler(commands.Cog):
     
     @commands.hybrid_command(name="forward", description="forward <message>")
     async def forward(self, ctx, *, message):
+        """
+        Forwards a message to the current channel and sends an ephemeral confirmation.
+
+        Parameters
+        ----------
+        ctx : commands.Context
+            The context in which the command was invoked.
+        message : str
+            The message to be forwarded.
+        """
         try:
             await ctx.channel.send(message)
             await ctx.send(message, ephemeral=True)
@@ -27,6 +37,16 @@ class MessageHandler(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        """
+        Handle the event when a message is sent in the guild.
+
+        Logs the message, ignores messages sent by the bot, emojis, gifs, and links, and replies based on keywords.
+
+        Parameters
+        ----------
+        message : discord.Message
+            The message that was sent.
+        """
         logger.info("%s - %s - %s, %s (%d): %s", message.guild, message.channel, message.author.display_name, message.author, message.author.id, message.content)
         # Ignore message sent by bot
         if message.author == self.bot.user:
@@ -44,33 +64,30 @@ class MessageHandler(commands.Cog):
             draft = ""
 
             # Message included all keywords in a topic
-            logger.debug("Message included all keywords in a topic")
             topics = list(self.chat["all"]["topic"].keys())
             for topic in topics:
                 keywords = list(self.chat["all"]["topic"][topic]["keyword"])
                 if all(word in message.content for word in keywords):
-                    logger.debug("case message contains all of topic keyword")
+                    logger.debug("Message included all keywords in a topic")
                     reply = self.on_chance(percent=100)
                     draft = random.choice(self.chat["all"]["topic"][topic]["reply"])
                     break
 
             # Message included any keywords in a topic
-            logger.debug("Message included any keywords in a topic")
             topics = list(self.chat["any"]["topic"].keys())
             for topic in topics:
                 keywords = list(self.chat["any"]["topic"][topic]["keyword"])
                 if any(word in message.content for word in keywords):
-                    logger.debug("case message contains any of topic keyword")
+                    logger.debug("Message included any keywords in a topic")
                     reply = self.on_chance(percent=66)
                     draft = random.choice(self.chat["any"]["topic"][topic]["reply"])
                     break
 
             # Message send by a VIP
-            logger.debug("Message send by a VIP")
             match message.author.id:
                 # VIP send message
                 case sakuratoy if message.author.id == self.chat["sakuratoy"]["id"]:
-                    logger.debug("case VIP sakuratoy send message")
+                    logger.debug("Message send by a VIP sakuratoy")
                     reply = self.on_chance(percent=33)
                     # Select a reply from random topic
                     topics = list(self.chat["sakuratoy"]["topic"].keys())
@@ -79,7 +96,7 @@ class MessageHandler(commands.Cog):
 
                 # VIP mentioned someone
                 case sakuratoy_mentions if message.author.id == self.chat["sakuratoy"]["id"] and len(message.mentions) > 0:
-                    logger.debug("case VIP sakuratoy send message and mentioned someone")
+                    logger.debug("Message send by a VIP sakuratoy and mentioned someone")
                     reply = self.on_chance(percent=66)
                     draft = random.choice(self.chat["sakuratoy"]["topic"]["missyou"]["reply"])
 
@@ -87,34 +104,33 @@ class MessageHandler(commands.Cog):
                     pass
 
             # Message mentioned a VIP
-            logger.debug("Message mentioned a VIP")
             # NOTE message.mentions include @user and reply to user
             if len(message.mentions) > 0:
-                logger.debug("message mentioned someone")
+                logger.debug("Message mentioned someone")
                 for member in message.mentions:
                     # VIP be mentioned
                     match member.id:
                         case guild_bot if member.id == self.chat["bot"]["id"]:
-                            logger.debug("case VIP BOT be mentioned")
+                            logger.debug("Message mentioned VIP BOT")
                             reply = self.on_chance(percent=100)
                             draft = random.choice(self.chat["bot"]["topic"]["be_mentioned"]["reply"])
 
                         case usagiyaki if member.id == self.chat["usagiyaki"]["id"]:
-                            logger.debug("case VIP usagiyaki be mentioned")
+                            logger.debug("Message mentioned VIP usagiyaki")
                             reply = self.on_chance(percent=66)
                             draft = random.choice(self.chat["usagiyaki"]["topic"]["be_mentioned"]["reply"])
 
                         case captainfmafrica if member.id == self.chat["captainfmafrica"]["id"]:
-                            logger.debug("case VIP captainfmafrica be mentioned")
+                            logger.debug("Message mentioned VIP captainfmafrica")
                             reply = self.on_chance(percent=66)
                             draft = random.choice(self.chat["captainfmafrica"]["topic"]["be_mentioned"]["reply"])
 
                         case _:
-                            logger.debug("case NON VIP be mentioned")
+                            logger.debug("Message mentioned NonVIP user")
                             pass
 
             else:
-                logger.debug("message NOT mentioned anyone")
+                logger.debug("Message NOT mentioned anyone")
 
             if reply:
                 await message.channel.send(draft)

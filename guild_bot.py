@@ -17,6 +17,11 @@ class GuildBot(commands.Bot):
         super().__init__(command_prefix="/", intents=intents)
 
     async def on_ready(self):
+        """
+        Event handler for when the bot is ready.
+
+        Logs the Python and discord.py versions, the bot's username and ID, loads all cog files, and syncs commands.
+        """
         logger.info("Python %s", sys.version)
         logger.info("discord.py %s", discord.__version__)
         logger.info("Logged in as %s (%s)", self.user.name, self.user.id)

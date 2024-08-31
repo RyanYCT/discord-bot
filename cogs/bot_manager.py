@@ -22,8 +22,10 @@ class BotManager(commands.Cog):
 
         This command can only be used by the bot owner.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
         """
         try:
             await self.bot.tree.sync(guild=ctx.guild)
@@ -42,8 +44,10 @@ class BotManager(commands.Cog):
 
         This command can only be used by admin.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
         """
         await self.bot.close()
 
@@ -55,8 +59,10 @@ class BotManager(commands.Cog):
 
         This command can only be used by the bot owner.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
         """
         # Construct the embed message
         title = self.msg["loaded_cogs"]["title"]
@@ -73,24 +79,27 @@ class BotManager(commands.Cog):
     @commands.hybrid_command(name="set_game", help="set_game <name>")
     @commands.is_owner()
     async def set_game(self, ctx, name):
-        """Set game of bot.
+        """
+        Set the game status of the bot.
 
         This command can only be used by the bot owner.
 
         Parameters
         ----------
         ctx : discord.commands.Context
-            Represents the context in which a command is being invoked under.
+            Represents the context in which a command is being invoked.
         name : str
-            The game's name or message to be displayed. "default" or "d" restore to default status.
+            The game's name or message to be displayed. "default" or "d" restores to default status.
 
-        Note
+        NOTE
         ----
-        NOTE discord.BaseActivity included: Activity, Game, Streaming, CustomActivity
-        NOTE discord.Status included: online, offline, idle, dnd, do_not_disturb, invisible
+        - "discord.BaseActivity" includes: Activity, Game, Streaming, CustomActivity.
+        - "discord.Status" includes: online, offline, idle, dnd, do_not_disturb, invisible.
 
-        TODO Add more choices of activity type.
-        TODO Add another function to customize the details of activity.
+        TODO
+        ----
+        - Add more choices of activity type.
+        - Add another function to customize the details of activity.
         """
         match name:
             case "default" | "d":

@@ -24,6 +24,16 @@ class MemberEvent(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        """
+        Handle the event when a new member joins the guild.
+
+        Logs the event, sends a welcome message, and posts an embed in the log channel.
+
+        Parameters
+        ----------
+        member : discord.Member
+            The member who joined the guild.
+        """
         logger.info("%s - %s, %s (%d) has joined the guild", member.guild, member.display_name, member.name, member.id)
         timestamp = datetime.datetime.now()
         log_channel = discord.utils.get(member.guild.channels, name=settings.LOG_CHANNEL_NAME)
@@ -48,6 +58,16 @@ class MemberEvent(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
+        """
+        Handle the event when a member is removed from the guild.
+
+        Logs the event, searches for the latest audit log entry, and posts an embed in the log channel.
+
+        Parameters
+        ----------
+        member : discord.Member
+            The member who was removed from the guild.
+        """
         logger.info("%s - %s, %s (%d) is removed from the guild", member.guild, member.display_name, member.name, member.id)
         timestamp = datetime.datetime.now()
         log_channel = discord.utils.get(member.guild.channels, name=settings.LOG_CHANNEL_NAME)
@@ -76,6 +96,18 @@ class MemberEvent(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        """
+        Handle the event when a member's details are updated in the guild.
+
+        Logs the event, searches for the latest audit log entry, and posts an embed in the log channel if the display name is changed.
+
+        Parameters
+        ----------
+        before : discord.Member
+            The member's details before the update.
+        after : discord.Member
+            The member's details after the update.
+        """
         logger.info("%s - %s, %s (%d) has updated", before.guild, before.display_name, before.name, before.id)
         timestamp = datetime.datetime.now()
         log_channel = discord.utils.get(before.guild.channels, name=settings.LOG_CHANNEL_NAME)

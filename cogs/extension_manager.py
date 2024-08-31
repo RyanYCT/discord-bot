@@ -18,17 +18,28 @@ class ExtensionManager(commands.Cog):
     @commands.is_owner()
     async def load(self, ctx, extension):
         """
-        Load extension into the bot.
+        Load an extension into the bot.
 
         This command can be used by admin and tester.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
-            extension (str): The name of the extension to be loaded or "all" to load all extensions.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
+        extension : str
+            The name of the extension to be loaded or "all" to load all extensions.
         """
 
         @staticmethod
         async def load_helper(file):
+            """
+            Helper function to load a single extension.
+
+            Parameters
+            ----------
+            file : str
+                The name of the file to be loaded as an extension.
+            """
             if not file.startswith("__") and file.endswith(".py"):
                 file = file[:-3]
                 try:
@@ -60,17 +71,28 @@ class ExtensionManager(commands.Cog):
     @commands.is_owner()
     async def unload(self, ctx, extension):
         """
-        Unload extension from the bot.
+        Unload an extension from the bot.
 
         This command can be used by admin and tester.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
-            extension (str): The name of the extension to be unloaded or "all" to unload all extensions.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
+        extension : str
+            The name of the extension to be unloaded or "all" to unload all extensions.
         """
 
         @staticmethod
         async def unload_helper(file):
+            """
+            Helper function to unload a single extension.
+
+            Parameters
+            ----------
+            file : str
+                The name of the file to be unloaded as an extension.
+            """
             if not file.startswith("__") and file.endswith(".py"):
                 file = file[:-3]
                 try:
@@ -101,17 +123,28 @@ class ExtensionManager(commands.Cog):
     @commands.is_owner()
     async def reload(self, ctx, extension):
         """
-        Reload extension in the bot.
+        Reload an extension in the bot.
 
         This command can be used by admin and tester.
 
-        Args:
-            ctx (commands.Context): Represents the context in which a command is being invoked under.
-            extension (str): The name of the extension to be reloaded or "all" to reload all extensions.
+        Parameters
+        ----------
+        ctx : commands.Context
+            Represents the context in which a command is being invoked.
+        extension : str
+            The name of the extension to be reloaded or "all" to reload all extensions.
         """
 
         @staticmethod
         async def reload_helper(file):
+            """
+            Helper function to reload a single extension.
+
+            Parameters
+            ----------
+            file : str
+                The name of the file to be reloaded as an extension.
+            """
             if not file.startswith("__") and file.endswith(".py"):
                 file = file[:-3]
                 try:
