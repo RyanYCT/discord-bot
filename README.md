@@ -42,20 +42,6 @@ GuildBotII/
 ├─ guild_bot.py
 └─ main.py
 
-## Working on
-- Update docstrings to NumPy style
-
-## To do
-- cogs/message_handler (normal keyword)
-
-## To test
-- cogs/woof.echo_i
-- cogs/woof.list_commands
-- cogs/woof.activity
-- cogs/extension_manager.
-
-###
-─ │ ├─ └─ ┐ ┌
-
-### Example NumPy Style Python Docstrings
-reference: https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html
+## References
+- discord.py Documentation [Link](https://discordpy.readthedocs.io/en/latest/index.html)
+- NumPy Style Docstrings [Link](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html)

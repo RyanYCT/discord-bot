@@ -2,7 +2,7 @@ import os
 import logging
 from discord.ext import commands
 from config import settings
-from src import utilities
+from utils import utilities
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

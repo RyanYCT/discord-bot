@@ -2,7 +2,7 @@ import logging
 import random
 from discord.ext import commands
 from config import settings
-from src import utilities
+from utils import utilities
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -30,7 +30,7 @@ class MessageHandler(commands.Cog):
         """
         try:
             await ctx.channel.send(message)
-            await ctx.send(message, ephemeral=True)
+            await ctx.send(f"Forwarded message: {message}", ephemeral=True)
         
         except Exception as e:
             logger.exception("Failed to forward message: %s", e)
@@ -59,7 +59,6 @@ class MessageHandler(commands.Cog):
             return
 
         else:
-            logger.debug("vvvvvvvvvvvvv message handling vvvvvvvvvvvv")
             reply = False
             draft = ""
 
@@ -79,7 +78,7 @@ class MessageHandler(commands.Cog):
                 keywords = list(self.chat["any"]["topic"][topic]["keyword"])
                 if any(word in message.content for word in keywords):
                     logger.debug("Message included any keywords in a topic")
-                    reply = self.on_chance(percent=66)
+                    reply = self.on_chance(percent=87)
                     draft = random.choice(self.chat["any"]["topic"][topic]["reply"])
                     break
 
@@ -135,8 +134,7 @@ class MessageHandler(commands.Cog):
             if reply:
                 await message.channel.send(draft)
 
-
-        logger.debug("^^^^^^^^^^^^^ message handled ^^^^^^^^^^^^")
+        logger.debug("Message handled")
 
 async def setup(bot):
     await bot.add_cog(MessageHandler(bot))
