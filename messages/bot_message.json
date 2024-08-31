@@ -1,0 +1,62 @@
+{
+    "sync": {
+        "succeeded": "Sync succeeded", 
+        "failed": "Sync failed", 
+        "invalid": "Invalid option {option}. Use \"global\", \"guild\" or \"both\"."
+    }, 
+    "shutdown": "Shutting down {name}", 
+    "loaded_cogs": {
+        "title": "Cog List", 
+        "description": "A list of all the cogs loaded in the bot.", 
+        "name": "Cog Name"
+    }, 
+    "activity": {
+        "application_id": "{int}", 
+        "name": "{str}", 
+        "url": "{str}", 
+        "type": "{type}", 
+        "state": "{str}", 
+        "details": "{str}", 
+        "platform": "{str}", 
+        "timestamps": {
+            "start": "{datetime}", 
+            "end": "{datetime}"
+        }, 
+        "assets": {
+            "large_image": "{str}", 
+            "large_text": "{str}", 
+            "small_image": "{str}", 
+            "small_text": "{str}"
+        }, 
+        "party": {
+            "id": "{str}", 
+            "size": [
+                "{current_size}", 
+                "{maximum_size}"
+            ]
+        }, 
+        "buttons": [
+            "{str}", 
+            "{str}", 
+            "{str}"
+        ], 
+        "emoji": "{discord.PartialEmoji}"
+    }, 
+    "game": {
+        "name": "{name}", 
+        "platform": "{platform}", 
+        "assets": {
+            "large_image": "A string representing the ID for the large image asset.", 
+            "large_text": "A string representing the text when hovering over the large image asset.", 
+            "small_image": "A string representing the ID for the small image asset.", 
+            "small_text": "A string representing the text when hovering over the small image asset."
+        }
+    }, 
+    "custom": {
+        "name": "{name}", 
+        "emoji": "{discord.PartialEmoji}", 
+        "type": "{}"
+    }, 
+    "succeeded": "Set activity succeeded", 
+    "failed": "Set activity failed"
+}
