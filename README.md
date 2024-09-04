@@ -30,14 +30,14 @@ The bot primarily uses `commands.Cog` to modularize every function, ensuring a c
 
 ## Getting Started
 ### Prerequisites
-- Python 3.8 or higher
+- Python 3.10 or higher
 - `discord.py` library
 - Other dependencies listed in `requirements.txt`
 
 ### Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/discord-guild-bot.git <<<<<<<<<<<<<<<<
+    git clone https://github.com/yourusername/discord-guild-bot.git
     cd discord-guild-bot
     ```
 
