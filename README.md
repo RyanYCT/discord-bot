@@ -55,26 +55,17 @@ The bot primarily uses `commands.Cog` to modularize every function, ensuring a c
     - Check json files under `messages/<language>` and make adjustments to meet requirements
 
 ### Running the Bot
-To start the bot, run:
-```bash
-cd ./src
-python main.py
-```
+To start the bot, run the run.bat
 
 ## Project Structure
 ```
 GuildBot/
 │
 ├─ cogs/
-│  ├─ appointment_manager.py (pending)
 │  ├─ bot_manager.py
 │  ├─ extension_manager.py
-│  ├─ leave_manager.py (pending)
 │  ├─ member_event.py
 │  └─ message_handler.py
-│
-├─ logs/
-│  └─ discord.log
 │
 ├─ messages/
 │  ├─ en/
