@@ -1,0 +1,36 @@
+{
+    "topic": {
+        "breakfast": {
+            "chance": 100,
+            "keyword": [
+                "what",
+                "breakfast",
+                "eat",
+                "?"
+            ],
+            "reply": [
+                "I have a post in DC about what I just had for breakfast."
+            ]
+        },
+        "lunch": {
+            "chance": 100,
+            "keyword": [
+                "lunch",
+                "?"
+            ],
+            "reply": [
+                "OK"
+            ]
+        },
+        "dinner": {
+            "chance": 100,
+            "keyword": [
+                "dinner",
+                "?"
+            ],
+            "reply": [
+                "NO"
+            ]
+        }
+    }
+}

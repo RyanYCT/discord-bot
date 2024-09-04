@@ -1,0 +1,59 @@
+{
+    "topic": {
+        "want": {
+            "chance": 87,
+            "keyword": [
+                "要不要",
+                "要嗎",
+                "為甚麼不要"
+            ],
+            "reply": [
+                "不要",
+                "問就是不要"
+            ]
+        },
+        "ok": {
+            "chance": 87,
+            "keyword": [
+                "好不好",
+                "好嗎",
+                "為甚麼不好"
+            ],
+            "reply": [
+                "不好",
+                "問就是不好"
+            ]
+        },
+        "congrats": {
+            "chance": 66,
+            "keyword": [
+                "恭喜"
+            ],
+            "reply": [
+                "恭喜"
+            ]
+        },
+        "good_morning": {
+            "chance": 66,
+            "keyword": [
+                "早安",
+                "安安"
+            ],
+            "reply": [
+                "早安"
+            ]
+        },
+        "good_night": {
+            "chance": 66,
+            "keyword": [
+                "晚安",
+                "睡了",
+                "好睏"
+            ],
+            "reply": [
+                "お嬢様\nIt's time to go to bed\n",
+                "또 핸드폰 하는 거예요\n늦게 자면\n고운 피부가 다 무너진다구요"
+            ]
+        }
+    }
+}

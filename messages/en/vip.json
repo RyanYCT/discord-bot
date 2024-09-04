@@ -1,0 +1,77 @@
+{
+    "bot": {
+        "id": 1000000000000000000,
+        "topic": {
+            "be_mentioned": {
+                "chance": 100,
+                "keyword": [
+                    "<@1000000000000000000>",
+                    "robot",
+                    "bot",
+                    "good bot"
+                ],
+                "reply": [
+                    "Hi",
+                    "Hello"
+                ]
+            }
+        }
+    },
+    "vip_1": {
+        "id": 1000000000000000001,
+        "topic": {
+            "be_mentioned": {
+                "chance": 100,
+                "keyword": [
+                    "<@1000000000000000001>"
+                ],
+                "reply": [
+                    "..."
+                ]
+            },
+            "cool": {
+                "chance": 87,
+                "keyword": [
+                    "cool",
+                    "am I cool"
+                ],
+                "reply": [
+                    "cool",
+                    "<@1000000000000000001> you are so cool"
+                ]
+            }
+        }
+    },
+    "vip_2": {
+        "id": 1000000000000000002,
+        "topic": {
+            "be_mentioned": {
+                "chance": 0,
+                "keyword": [
+                    "<@1000000000000000002>",
+                    "vip_2_username",
+                    "vip_2_nickname"
+                ],
+                "reply": [
+                    "reply_to_vip2"
+                ]
+            }
+        }
+    },
+    "vip_3": {
+        "id": 1000000000000000003,
+        "topic": {
+            "be_mentioned": {
+                "chance": 0,
+                "keyword": [
+                    "<@1000000000000000003>",
+                    "vip_3_username",
+                    "vip_3_nickname"
+                ],
+                "reply": [
+                    "reply_to_vip3"
+                ]
+            }
+        }
+    }
+}

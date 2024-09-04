@@ -3,11 +3,11 @@
         "title": "A new member joined",
         "description": "{mention}\n Nickname: {nickname}\n Username: {username}\n ID: {id}",
         "welcome": "{mention} Welcome to the {guild}!\nPlease follow the naming convention\n> FamilyName(Nickname_Optional)"
-    }, 
+    },
     "remove": {
         "title": "A member removed",
         "description": "{mention}\n Nickname: {nickname}\n Username: {username}\n ID: {id}\nReason: {reason}"
-    }, 
+    },
     "update": {
         "displayname": {
             "title": "A member's nickname updated",

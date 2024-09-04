@@ -1,7 +1,0 @@
-{
-    "list": {
-        "title": "Command List", 
-        "description": "A list of all the commands available in the bot.", 
-        "name": "command - package.class - usage"
-    }
-}

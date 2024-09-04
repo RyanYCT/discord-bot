@@ -1,0 +1,58 @@
+{
+    "topic": {
+        "want": {
+            "chance": 87,
+            "keyword": [
+                "do you want",
+                "want it",
+                "why not"
+            ],
+            "reply": [
+                "no",
+                "nope"
+            ]
+        },
+        "ok": {
+            "chance": 87,
+            "keyword": [
+                "okay",
+                "ok",
+                "why not"
+            ],
+            "reply": [
+                "no",
+                "nope"
+            ]
+        },
+        "congrats": {
+            "chance": 66,
+            "keyword": [
+                "congrats"
+            ],
+            "reply": [
+                "congrats"
+            ]
+        },
+        "good_morning": {
+            "chance": 66,
+            "keyword": [
+                "good morning",
+                "gm"
+            ],
+            "reply": [
+                "good morning"
+            ]
+        },
+        "good_night": {
+            "chance": 66,
+            "keyword": [
+                "good night",
+                "gn",
+                "sleepy"
+            ],
+            "reply": [
+                "it's time to go to bed"
+            ]
+        }
+    }
+}

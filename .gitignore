@@ -165,4 +165,3 @@ cython_debug/
 .vscode/
 experiment/
 .dev.md
-woof.py
