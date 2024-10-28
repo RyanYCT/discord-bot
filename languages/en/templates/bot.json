@@ -1,26 +1,26 @@
 {
     "exception": {
-        "mar": "無法執行此命令 因為你沒有所需的權限",
-        "enf": "找不到插件 {file} 請檢查名稱後再重試",
-        "eal": "無法載入 {file}",
-        "enl": "無法載入 {file} "
+        "mar": "This command cannot be executed because you do not have the required permissions.",
+        "enf": "The extension {file} was not found. Please check the name and try again.",
+        "eal": "The extension {file} is already loaded.",
+        "enl": "The extension {file} is not loaded."
     },
     "sync": {
-        "succeeded": "同步成功",
-        "invalid": "無效選項",
-        "e": "同步失敗"
+        "succeeded": "Sync succeeded.",
+        "invalid": "Invalid option.",
+        "e": "Sync failed."
     },
     "shutdown": {
-        "succeeded": "正在關閉"
+        "succeeded": "Shutting down..."
     },
     "loaded_cogs": {
-        "title": "插件列表",
-        "description": "已加載的插件列表。",
-        "name": "插件名稱"
+        "title": "Cog List",
+        "description": "A list of all the cogs loaded in the bot.",
+        "name": "Cog Name"
     },
     "set_activity": {
-        "succeeded": "設定活動成功",
-        "failed": "設定活動失敗"
+        "succeeded": "Set activity succeeded.",
+        "failed": "Set activity failed."
     },
     "activity": {
         "application_id": "{id}",
@@ -60,12 +60,15 @@
         }
     },
     "load": {
-        "succeeded": "已載入 {file} "
+        "succeeded": "Extension {file} is loaded"
     },
     "unload": {
-        "succeeded": "已卸載 {file} "
+        "succeeded": "Extension {file} is unloaded"
     },
     "reload": {
-        "succeeded": "已重新載入 {file} "
+        "succeeded": "Extension {file} is reloaded"
+    },
+    "prompt": {
+        "channel": "Choose a channel."
     }
 }

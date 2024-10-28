@@ -163,5 +163,4 @@ cython_debug/
 #.idea/
 
 .vscode/
-experiment/
-.dev.md
+dev*

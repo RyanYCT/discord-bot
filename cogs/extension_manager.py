@@ -51,21 +51,15 @@ class ExtensionManager(commands.Cog):
 
                 except commands.ExtensionNotFound as enf:
                     logger.exception("%s failed to load %s: %s", ctx.author, file, enf)
-                    await ctx.send(
-                        self.msg["exception"]["enf"].format(file=file), ephemeral=True
-                    )
+                    await ctx.send(self.msg["exception"]["enf"].format(file=file), ephemeral=True)
 
                 except commands.ExtensionAlreadyLoaded as eal:
                     logger.exception("%s failed to load %s: %s", ctx.author, file, eal)
-                    await ctx.send(
-                        self.msg["exception"]["eal"].format(file=file), ephemeral=True
-                    )
+                    await ctx.send(self.msg["exception"]["eal"].format(file=file), ephemeral=True)
 
                 else:
                     logger.info("%s loaded %s", ctx.author, file)
-                    await ctx.send(
-                        self.msg["load"]["succeeded"].format(file=file), ephemeral=True
-                    )
+                    await ctx.send(self.msg["load"]["succeeded"].format(file=file), ephemeral=True)
 
         extension = extension.lower()
         if extension == "all":
@@ -107,33 +101,20 @@ class ExtensionManager(commands.Cog):
                     await self.bot.unload_extension(f"cogs.{file}")
 
                 except commands.errors.MissingAnyRole as mar:
-                    logger.exception(
-                        "%s failed to unload %s: %s", ctx.author, file, mar
-                    )
+                    logger.exception("%s failed to unload %s: %s", ctx.author, file, mar)
                     await ctx.send(self.msg["exception"]["mar"], ephemeral=True)
 
                 except commands.ExtensionNotFound as enf:
-                    logger.exception(
-                        "%s failed to unload %s: %s", ctx.author, file, enf
-                    )
-                    await ctx.send(
-                        self.msg["exception"]["enf"].format(file=file), ephemeral=True
-                    )
+                    logger.exception("%s failed to unload %s: %s", ctx.author, file, enf)
+                    await ctx.send(self.msg["exception"]["enf"].format(file=file), ephemeral=True)
 
                 except commands.ExtensionNotLoaded as enl:
-                    logger.exception(
-                        "%s failed to unload %s: %s", ctx.author, file, enl
-                    )
-                    await ctx.send(
-                        self.msg["exception"]["enl"].format(file=file), ephemeral=True
-                    )
+                    logger.exception("%s failed to unload %s: %s", ctx.author, file, enl)
+                    await ctx.send(self.msg["exception"]["enl"].format(file=file), ephemeral=True)
 
                 else:
                     logger.info("%s unloaded %s", ctx.author, file)
-                    await ctx.send(
-                        self.msg["unload"]["succeeded"].format(file=file),
-                        ephemeral=True,
-                    )
+                    await ctx.send(self.msg["unload"]["succeeded"].format(file=file), ephemeral=True)
 
         extension = extension.lower()
         if extension == "all":
@@ -180,21 +161,15 @@ class ExtensionManager(commands.Cog):
 
             except commands.ExtensionNotFound as enf:
                 logger.exception("%s failed to reload %s: %s", ctx.author, file, enf)
-                await ctx.send(
-                    self.msg["exception"]["enf"].format(file=file), ephemeral=True
-                )
+                await ctx.send(self.msg["exception"]["enf"].format(file=file), ephemeral=True)
 
             except commands.ExtensionNotLoaded as enl:
                 logger.exception("%s failed to reload %s: %s", ctx.author, file, enl)
-                await ctx.send(
-                    self.msg["exception"]["enl"].format(file=file), ephemeral=True
-                )
+                await ctx.send(self.msg["exception"]["enl"].format(file=file), ephemeral=True)
 
             else:
                 logger.info("%s reloaded %s", ctx.author, file)
-                await ctx.send(
-                    self.msg["reload"]["succeeded"].format(file=file), ephemeral=True
-                )
+                await ctx.send(self.msg["reload"]["succeeded"].format(file=file), ephemeral=True)
 
         extension = extension.lower()
         if extension == "all":

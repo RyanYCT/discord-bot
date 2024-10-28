@@ -1,0 +1,32 @@
+{
+    "bot": {
+        "id": 1234567890123456789,
+        "topic": {
+            "be_mentioned": {
+                "chance": 100, 
+                "keyword": ["<@1234567890123456789>", "bot"], 
+                "reply": ["Hi", "Hello"]
+            }
+        }
+    }, 
+    "vip1": {
+        "id": 1234567890123456789, 
+        "topic": {
+            "be_mentioned": {
+                "chance": 100, 
+                "keyword": ["<@1234567890123456789"], 
+                "reply": ["someone mentioned you, <@1234567890123456789>"]
+            }
+        }
+    }, 
+    "vip2": {
+        "id": 1234567890123456789, 
+        "topic": {
+            "best": {
+                "chance": 33, 
+                "keyword": ["who is the best"], 
+                "reply": ["definitely <@1234567890123456789>"]
+            }
+        }
+    }
+}

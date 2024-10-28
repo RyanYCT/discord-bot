@@ -1,0 +1,11 @@
+{
+    "title": "自取身分組",
+    "description": "參考 discord.Embed.from_dict() 來建構一個嵌入式訊息\n按下表情符號來獲得對應的身分組",
+    "fields": [
+        {
+            "name": ":emoji_name: 身分組名稱",
+            "value": "<@&1234567890123456789>",
+            "inline": false
+        }
+    ]
+}

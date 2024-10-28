@@ -1,0 +1,11 @@
+{
+    "title": "Reaction Roles",
+    "description": "REFERENCE TO discord.Embed.from_dict() TO SEE HOW TO CONSTRUCTURE AN EMBED MESSAGE\nAdd reaction to get the corresponding role\nIf you want to receive relevant messages.",
+    "fields": [
+        {
+            "name": ":emoji_name: Role Name",
+            "value": "<@&1234567890123456789>",
+            "inline": false
+        }
+    ]
+}

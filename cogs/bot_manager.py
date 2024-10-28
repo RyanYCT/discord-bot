@@ -49,11 +49,7 @@ class BotManager(commands.Cog):
                     await ctx.send(self.msg["sync"]["succeeded"], ephemeral=True)
 
                 case _:
-                    logger.info(
-                        "%s failed to sync commands: invalid option %s",
-                        ctx.author,
-                        option,
-                    )
+                    logger.info("%s failed to sync commands: invalid option %s", ctx.author, option)
                     await ctx.send(self.msg["sync"]["invalid"], ephemeral=True)
 
         except commands.errors.MissingAnyRole as mar:

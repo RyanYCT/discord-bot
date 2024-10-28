@@ -2,11 +2,11 @@
     "join": {
         "title": "成員加入",
         "description": "{mention}\n 暱稱: {nickname}\n 名稱: {username}\n ID: {id}",
-        "welcome": "{mention} 歡迎來到 {guild}！\n請參考名稱範例\n> 家門名稱(暱稱)"
+        "welcome": "{mention} 歡迎來到 {guild}！\n請回覆你的名稱及暱稱。"
     },
     "remove": {
         "title": "成員離開",
-        "description": "{mention}\n 暱稱: {nickname}\n 名稱: {username}\n ID: {id}\n原因: {reason}"
+        "description": "{mention}\n 暱稱: {nickname}\n 名稱: {username}\n ID: {id}"
     },
     "update": {
         "displayname": {

@@ -1,0 +1,19 @@
+{
+    "topic": {
+        "breakfast": {
+            "chance": 100,
+            "keyword": ["早餐", "吃", "甚麼", "?"],
+            "reply": ["我DC有貼剛剛吃的早餐"]
+        },
+        "lunch": {
+            "chance": 100,
+            "keyword": ["一起", "午餐", "?"],
+            "reply": ["好"]
+        },
+        "dinner": {
+            "chance": 100,
+            "keyword": ["一起", "晚餐", "?"],
+            "reply": ["不好"]
+        }
+    }
+}
