@@ -44,6 +44,7 @@ The bot primarily uses `discord.commands.Cog` to modularize every function as pl
 1. Clone the repository:
     ```bash
     git clone https://github.com/RyanYCT/discord-guild-bot.git
+    git clone https://github.com/RyanYCT/discord-guild-bot.git
     cd discord-guild-bot
     ```
 
