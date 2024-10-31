@@ -1,27 +1,158 @@
 import logging
 import random
 
-from discord import Embed
+import discord
 from discord.ext import commands
 
 import settings
 import utilities
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 class MessageHandler(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.guild = settings.guild
-        self.all = utilities.load_json(settings.all_keywords)
-        self.any = utilities.load_json(settings.any_keywords)
-        self.vip = utilities.load_json(settings.vip_keywords)
+        self.all_keywords = utilities.load_json(settings.all_keywords)
+        self.any_keywords = utilities.load_json(settings.any_keywords)
+        self.vip_keywords = utilities.load_json(settings.vip_keywords)
 
     @staticmethod
     def on_chance(percent):
         return random.randint(1, 100) <= percent
+
+    @commands.hybrid_command(name="forward", description="forward <message>")
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    async def forward(self, ctx, *, message):
+        """
+        Forward a message to the current channel and send an ephemeral confirmation.
+
+        Parameters
+        ----------
+        ctx : commands.Context
+            The context in which the command was invoked.
+        message : str
+            The message to be forwarded.
+
+        Notes
+        -----
+        This command is restricted to the guild admin.
+        """
+        try:
+            await ctx.channel.send(message)
+            await ctx.send(f"Forwarded message: {message}", ephemeral=True)
+
+        except Exception as e:
+            logger.exception("Failed to forward message: %s", e)
+
+    @commands.hybrid_command(name="react_emoji", description="react_emoji <message_id> <number_of_option>")
+    @commands.is_owner()
+    async def react_emoji(self, ctx, message_id, number_of_option):
+        """
+        React emoji on a message.
+
+        Parameters
+        ----------
+        ctx : commands.Context
+            The context in which the command was invoked.
+        message_id : int
+            The ID of the message to be react.
+        number_of_option : int
+            The number of option to react.
+
+        Notes
+        -----
+        This command is restricted to the bot owner.
+        """
+        try:
+            message = await ctx.fetch_message(message_id)
+
+            # Prepare reaction emojis for the voting
+            for i in range(number_of_option):
+                # These are unicode of regional_indicator A-Z
+                emojis = [
+                    "\U0001F1E6", "\U0001F1E7", "\U0001F1E8",
+                    "\U0001F1E9", "\U0001F1EA", "\U0001F1EB",
+                    "\U0001F1EC", "\U0001F1ED", "\U0001F1EE",
+                    "\U0001F1EF", "\U0001F1F0", "\U0001F1F1",
+                    "\U0001F1F2", "\U0001F1F3", "\U0001F1F4",
+                    "\U0001F1F5", "\U0001F1F6", "\U0001F1F7",
+                    "\U0001F1F8", "\U0001F1F9", "\U0001F1FA",
+                    "\U0001F1FB", "\U0001F1FC", "\U0001F1FD",
+                    "\U0001F1FE","\U0001F1FF"
+                ]
+                await message.add_reaction(emojis[i])
+
+        except Exception as e:
+            logger.exception("Failed to send announcement: %s", e)
+
+    @commands.hybrid_command(name="announce", description="send a predefine embed announcement")
+    @commands.is_owner()
+    async def announce(self, ctx):
+        """
+        Send an embed message to the current channel and send an ephemeral confirmation.
+
+        Parameters
+        ----------
+        ctx : commands.Context
+            The context in which the command was invoked.
+
+        Notes
+        -----
+        This command is restricted to the bot owner.
+        This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
+        """
+        try:
+            # Construct embed message
+            draft = utilities.load_json(settings.embed_message_template)
+            embed = discord.Embed.from_dict(draft)
+
+            # Sign bot on embed message
+            text = self.bot.user.display_name
+            icon_url = self.bot.user.avatar.url
+            embed.set_footer(text=text, icon_url=icon_url)
+
+            await ctx.channel.send(embed=embed)
+            await ctx.send("Embed message sent", ephemeral=True)
+
+        except Exception as e:
+            logger.exception("Failed to send announcement: %s", e)
+
+    @commands.hybrid_command(name="edit_embed", description="edit to a embed message")
+    @commands.is_owner()
+    async def edit_embed(self, ctx, message_id):
+        """
+        Edit the specified embed message with a draft file.
+
+        Parameters
+        ----------
+        ctx : commands.Context
+            The context in which the command was invoked.
+        message_id : int
+            The ID of the message to be edited.
+
+        Notes
+        -----
+        This command is restricted to the bot owner.
+        This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
+        """
+        try:
+            # Construct embed message
+            draft = utilities.load_json(settings.embed_message_template)
+            embed = discord.Embed.from_dict(draft)
+
+            # Sign bot on embed message
+            text = self.bot.user.display_name
+            icon_url = self.bot.user.avatar.url
+            embed.set_footer(text=text, icon_url=icon_url)
+
+            message = await ctx.fetch_message(message_id)
+            await message.edit(embed=embed)
+
+        except Exception as e:
+            logger.exception("Failed to edit announcement: %s", e)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -68,7 +199,7 @@ class MessageHandler(commands.Cog):
         tuple
             (reply: bool, draft: str)
         """
-        for topic, data in self.all["topic"].items():
+        for topic, data in self.all_keywords["topic"].items():
             keywords = list(data["keyword"])
             if all(word in content for word in keywords):
                 logger.debug("Message included all keywords in a topic %s", topic)
@@ -90,7 +221,7 @@ class MessageHandler(commands.Cog):
         tuple
             (reply: bool, draft: str)
         """
-        for topic, data in self.any["topic"].items():
+        for topic, data in self.any_keywords["topic"].items():
             keywords = list(data["keyword"])
             if any(word in content for word in keywords):
                 logger.debug("Message included any keywords in a topic %s", topic)
@@ -112,7 +243,7 @@ class MessageHandler(commands.Cog):
         tuple
             (reply: bool, draft: str)
         """
-        for user, data in self.vip.items():
+        for user, data in self.vip_keywords.items():
             if message.author.id == data["id"]:
                 logger.debug("Message send by a VIP %s", user)
                 if len(message.mentions) > 0:
@@ -142,146 +273,16 @@ class MessageHandler(commands.Cog):
         if len(message.mentions) > 0:
             logger.debug("Message mentioned someone")
             for member in message.mentions:
-                for user, data in self.vip.items():
+                for user, data in self.vip_keywords.items():
                     if member.id == data["id"]:
                         logger.debug("Message mentioned VIP %s", user)
-                        if self.on_chance(
-                            percent=data["topic"]["be_mentioned"]["chance"]
-                        ):
-                            return True, random.choice(
-                                data["topic"]["be_mentioned"]["reply"]
-                            )
+                        if self.on_chance(percent=data["topic"]["be_mentioned"]["chance"]):
+                            return True, random.choice(data["topic"]["be_mentioned"]["reply"])
             logger.debug("Message mentioned NonVIP user")
         else:
             logger.debug("Message NOT mentioned anyone")
         return False, ""
-    
-    @commands.hybrid_command(name="forward", description="forward <message>")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
-    async def forward(self, ctx, *, message):
-        """
-        Forward a normal message to the current channel and send an ephemeral confirmation.
 
-        This command can only be used by admin.
-
-        Parameters
-        ----------
-        ctx : commands.Context
-            The context in which the command was invoked.
-        message : str
-            The message to be forwarded.
-        """
-        try:
-            await ctx.channel.send(message)
-            await ctx.send(f"Forwarded message: {message}", ephemeral=True)
-
-        except Exception as e:
-            logger.exception("Failed to forward message: %s", e)
-
-    @commands.hybrid_command(name="announce", description="send a predefine embed announcement")
-    @commands.is_owner()
-    async def announce(self, ctx):
-        """
-        Send an embed message to the current channel and send an ephemeral confirmation.
-
-        This command can only be used by owner.
-
-        Parameters
-        ----------
-        ctx : commands.Context
-            The context in which the command was invoked.
-
-        Notes
-        -----
-        This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
-        """
-        try:
-            # Construct embed message
-            draft = utilities.load_json(settings.embed_message_template)
-            embed = Embed.from_dict(draft)
-
-            # Sign bot on embed message
-            text = self.bot.user.display_name
-            icon_url = self.bot.user.avatar.url
-            embed.set_footer(text=text, icon_url=icon_url)
-
-            await ctx.channel.send(embed=embed)
-            await ctx.send("Embed message sent", ephemeral=True)
-
-        except Exception as e:
-            logger.exception("Failed to send announcement: %s", e)
-
-    @commands.hybrid_command(name="edit_embed", description="edit to a embed message")
-    @commands.is_owner()
-    async def edit_embed(self, ctx, message_id):
-        """
-        Edit the specified embed message with a draft file.
-
-        Parameters
-        ----------
-        ctx : commands.Context
-            The context in which the command was invoked.
-        message_id : int
-            The ID of the message to be edited.
-
-        Notes
-        -----
-        This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
-        """
-        try:
-            # Construct embed message
-            draft = utilities.load_json(settings.embed_message_template)
-            embed = Embed.from_dict(draft)
-
-            # Sign bot on embed message
-            text = self.bot.user.display_name
-            icon_url = self.bot.user.avatar.url
-            embed.set_footer(text=text, icon_url=icon_url)
-
-            message = await ctx.fetch_message(message_id)
-            await message.edit(embed=embed)
-
-        except Exception as e:
-            logger.exception("Failed to edit announcement: %s", e)
-
-    @commands.hybrid_command(name="react_emoji", description="react_emoji <message_id> <number_of_option>")
-    @commands.is_owner()
-    async def react_emoji(self, ctx, message_id, number_of_option):
-        """
-        React emoji on a message.
-
-        This command can only be used by owner.
-
-        Parameters
-        ----------
-        ctx : commands.Context
-            The context in which the command was invoked.
-        message_id : int
-            The ID of the message to be react.
-        number_of_option : int
-            The number of option to react.
-        """
-        try:
-            message = await ctx.fetch_message(message_id)
-
-            # Prepare reaction emojis for the voting
-            for i in range(number_of_option):
-                # These are unicode of regional_indicator A-Z
-                emojis = [
-                    "\U0001F1E6", "\U0001F1E7", "\U0001F1E8",
-                    "\U0001F1E9", "\U0001F1EA", "\U0001F1EB",
-                    "\U0001F1EC", "\U0001F1ED", "\U0001F1EE",
-                    "\U0001F1EF", "\U0001F1F0", "\U0001F1F1",
-                    "\U0001F1F2", "\U0001F1F3", "\U0001F1F4",
-                    "\U0001F1F5", "\U0001F1F6", "\U0001F1F7",
-                    "\U0001F1F8", "\U0001F1F9", "\U0001F1FA",
-                    "\U0001F1FB", "\U0001F1FC", "\U0001F1FD",
-                    "\U0001F1FE","\U0001F1FF"
-                ]
-                await message.add_reaction(emojis[i])
-
-        except Exception as e:
-            logger.exception("Failed to send announcement: %s", e)
 
 async def setup(bot):
     await bot.add_cog(MessageHandler(bot))

@@ -2,7 +2,6 @@ import logging
 from datetime import datetime
 
 import discord
-from discord import Embed
 from discord.ext import commands
 
 import settings
@@ -96,7 +95,7 @@ class MemberEvent(commands.Cog):
                 # Construct embed message
                 title = self.event_message["update"]["displayname"]["title"]
                 description = self.event_message["update"]["displayname"]["description"].format(mention=entry.target.mention, nickname_before=before.display_name, nickname_after=after.display_name, username=after.name, id=after.id)
-                embed = Embed(title=title, description=description, timestamp=timestamp)
+                embed = discord.Embed(title=title, description=description, timestamp=timestamp)
 
                 url = self.get_avatar_url(before)
                 embed.set_thumbnail(url=url)
@@ -116,9 +115,6 @@ class MemberEvent(commands.Cog):
         ----------
         payload : discord.RawMemberRemoveEvent
             The payload of the member leaving the guild.
-
-        Notes
-        -----
         """
         logger.info("%s - %s, %s (%d) has left the guild", payload.guild_id, payload.user.display_name, payload.user.name, payload.user.id)
         timestamp = datetime.now()

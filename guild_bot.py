@@ -1,11 +1,10 @@
 import logging
-import os
 import sys
 
 import discord
 from discord.ext import commands
 
-import config
+import settings
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -22,14 +21,15 @@ class GuildBot(commands.Bot):
         """
         Load all cog files, and sync commands at launch.
         """
+        logger.info("ROOT_DIR %s", settings.ROOT_DIR)
         logger.info("Python %s", sys.version)
         logger.info("discord.py %s", discord.__version__)
         logger.info("Logged in as %s (%s)", self.user.name, self.user.id)
 
         # Load listed cog files
-        number_of_cogs = len(config.cog_list)
+        number_of_cogs = len(settings.cogs)
         count = 0
-        for file in config.cog_list:
+        for file in settings.cogs:
             count += 1
             file = file[:-3]
             try:
@@ -38,21 +38,6 @@ class GuildBot(commands.Bot):
                 logger.exception("Failed to load %s: %s", file, enf)
             else:
                 logger.info("Loaded %s [%d/%d]", file, count, number_of_cogs)
-
-        # # Load all cog files
-        # cogs_dir = os.listdir(config.cogs_dir)
-        # number_of_cogs = len(cogs_dir) - 1
-        # count = 0
-        # for file in cogs_dir:
-        #     if not file.startswith("__") and file.endswith(".py"):
-        #         count += 1
-        #         file = file[:-3]
-        #         try:
-        #             await self.load_extension(f"cogs.{file}")
-        #         except commands.ExtensionNotFound as enf:
-        #             logger.exception("Failed to load %s: %s", file, enf)
-        #         else:
-        #             logger.info("Loaded %s [%d/%d]", file, count, number_of_cogs)
 
         # Sync commands
         try:

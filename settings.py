@@ -68,6 +68,7 @@ templates_directory = languages_directory / language / "templates"
 bot_message_template = templates_directory / "bot.json"
 embed_message_template = templates_directory / "embed.json"
 event_message_template = templates_directory / "event.json"
+item_report_template = templates_directory / "item_report.json"
 overall_report_template = templates_directory / "overall_report.json"
 vote_message_template = templates_directory / "vote.json"
 vote_emojis = templates_directory / "vote_emojis.json"
@@ -78,5 +79,6 @@ cogs = [
     "extension_manager.py",
     "guild_manager.py",
     "member_event.py",
-    "message_handler.py"
+    "message_handler.py", 
+    "report_manager.py", 
 ]

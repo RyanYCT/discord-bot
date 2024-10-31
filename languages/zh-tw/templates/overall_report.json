@@ -1,0 +1,105 @@
+{
+    "title": "最佳表現 (整體)", 
+    "description": "以下是目前利潤最高的物品 (按倍率排序)", 
+    "fields": [
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        }, 
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "{enhance} : {name}", 
+            "value": "價格: {price}\n利潤: {profit}\n倍率: {odds}\n待售: {stock}", 
+            "inline": true
+        },
+        {
+            "name": "參考", 
+            "value": "價格 = 最近交易價\n稅率 = 14.525% (無巨商)", 
+            "inline": false
+        }
+    ], 
+    "footer": {
+        "text": "報告產生時間", 
+        "icon_url": "{icon_url}"
+    }
+}

@@ -80,7 +80,8 @@ discord-guild-bot/
 │  ├─ bot_manager.py
 │  ├─ extension_manager.py
 │  ├─ member_event.py
-│  └─ message_handler.py
+│  ├─ message_handler.py
+│  └─ report_manager.py
 ├─ languages/
 │  ├─ en/
 │  │  ├─ keywords/
@@ -90,7 +91,9 @@ discord-guild-bot/
 │  │  └─ templates/
 │  │     ├─ bot.json
 │  │     ├─ embed.json
-│  │     └─ event.json
+│  │     ├─ event.json
+│  │     ├─ item_report.json
+│  │     └─ overall_report.json
 │  └─ zh-tw/
 │     ├─ keywords/
 │     │  ├─ all.json
@@ -99,7 +102,9 @@ discord-guild-bot/
 │     └─ templates/
 │        ├─ bot.json
 │        ├─ embed.json
-│        └─ event.json
+│        ├─ event.json
+│        ├─ item_report.json
+│        └─ overall_report.json
 ├─ .env
 ├─ guild_bot.py
 ├─ main.py
