@@ -1,57 +1,13 @@
 import os
 import pathlib
-
+from typing import Dict, Any
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# API URL
-api_url = "http://localhost:5000"
-
 # Bot
-token = os.getenv("DISCORD_TOKEN")
-language = os.getenv("DISCORD_GUILD_LANGUAGE", "en")
-
-# Guild setting
-guild = {
-    "name": "Guild Name",
-    "id": 1234567890123456789,
-    "channel": {
-        "welcome": {
-            "name": "welcome-channel-name",
-            "id": 1234567890123456789,
-        },
-        "log": {
-            "name": "log-channel-name",
-            "id": 1234567890123456789,
-        },
-        "test": {
-            "name": "testing-channel-name",
-            "id": 1234567890123456789,
-        },
-        "role": {
-            "name": "reaction-role-channel-name",
-            "id": 1234567890123456789,
-        },
-    },
-    "role": {
-        "admin": {"id": 1234567890123456789, "name": "admin", "emoji": None},
-        "tester": {"id": 1234567890123456789, "name": "tester", "emoji": None},
-        "member": {"id": 1234567890123456789, "name": "member", "emoji": None},
-        "custom_role": {
-            "id": 1234567890123456789,
-            "name": "custom_role_name",
-            "emoji": "emoji_name",
-        },
-    },
-    # Fill emoji information if that is connected to a role
-    "emoji": {"emoji_name": {"role": "custom_role"}},
-    # Special message that will trigger event
-    "message": {
-        # This message responsible for reaction role
-        "role": {"id": 1234567890123456789}
-    },
-}
+token: str = os.getenv("DISCORD_TOKEN", "")
+language: str = os.getenv("DISCORD_GUILD_LANGUAGE", "en")
 
 # Directories
 ROOT_DIR = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
@@ -79,6 +35,64 @@ cogs = [
     "extension_manager.py",
     "guild_manager.py",
     "member_event.py",
-    "message_handler.py", 
-    "report_manager.py", 
+    "message_handler.py",
+    "report_manager.py",
 ]
+
+# Guild setting
+guild: Dict[str, Any] = {
+    "id": int(os.getenv("GUILD_ID")),
+    "channel": {
+        "log": {"id": int(os.getenv("LOG_CHANNEL_ID"))},
+        "welcome": {"id": int(os.getenv("WELCOME_CHANNEL_ID"))},
+        "test": {"id": int(os.getenv("TEST_CHANNEL_ID"))},
+        "role": {"id": int(os.getenv("ROLE_CHANNEL_ID"))},
+        "conference": {"id": int(os.getenv("CONFERENCE_CHANNEL_ID"))},
+    },
+    "role": {
+        "admin": {"id": int(os.getenv("ADMIN_ROLE_ID")), "emoji": None},
+        "tester": {"id": int(os.getenv("TESTER_ROLE_ID")), "emoji": None},
+        "member": {"id": int(os.getenv("MEMBER_ROLE_ID")), "emoji": None},
+        "subscriber": {"id": int(os.getenv("SUBSCRIBER_ROLE_ID")), "emoji": "🔔"},
+    },
+    "emoji": {
+        "🔔": {"role": "subscriber"},
+    },
+    "message": {
+        "role": {"id": int(os.getenv("ROLE_MESSAGE_ID"))}
+    }
+}
+
+# Logging configuration
+LOGGING_CONFIG = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": os.getenv("LOG_LEVEL", "INFO"),
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+            "stream": "ext://sys.stdout",
+        },
+    },
+    "loggers": {
+        "": {  # root logger
+            "handlers": ["console"],
+            "level": os.getenv("LOG_LEVEL", "INFO"),
+            "propagate": True,
+        },
+        "discord": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    }
+}
+
+# API URL
+api_url: str = os.getenv("API_URL")

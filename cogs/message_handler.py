@@ -1,5 +1,6 @@
 import logging
 import random
+from typing import Tuple
 
 import discord
 from discord.ext import commands
@@ -8,11 +9,10 @@ import settings
 import utilities
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class MessageHandler(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.guild = settings.guild
         self.all_keywords = utilities.load_json(settings.all_keywords)
@@ -20,12 +20,41 @@ class MessageHandler(commands.Cog):
         self.vip_keywords = utilities.load_json(settings.vip_keywords)
 
     @staticmethod
-    def on_chance(percent):
+    def convertible_to_int(string: str) -> bool:
+        try:
+            int(string)
+            return True
+        except ValueError:
+            return False
+
+    @staticmethod
+    def get_avatar_url(user: discord.User) -> str:
+        """
+        In case the user object has no avatar, return the default avatar URL instead of None by default.
+
+        Parameters
+        ----------
+        user : discord.User
+            The user whose avatar URL needs to be retrieved.
+
+        Returns
+        -------
+        str
+            The avatar URL of the user.
+        """
+        try:
+            url = user.avatar.url
+        except AttributeError:
+            url = user.default_avatar.url
+        return url
+
+    @staticmethod
+    def on_chance(percent: int) -> bool:
         return random.randint(1, 100) <= percent
 
     @commands.hybrid_command(name="forward", description="forward <message>")
     @commands.has_any_role(settings.guild["role"]["admin"]["id"])
-    async def forward(self, ctx, *, message):
+    async def forward(self, ctx: commands.Context, *, message: str):
         """
         Forward a message to the current channel and send an ephemeral confirmation.
 
@@ -35,10 +64,6 @@ class MessageHandler(commands.Cog):
             The context in which the command was invoked.
         message : str
             The message to be forwarded.
-
-        Notes
-        -----
-        This command is restricted to the guild admin.
         """
         try:
             await ctx.channel.send(message)
@@ -48,8 +73,8 @@ class MessageHandler(commands.Cog):
             logger.exception("Failed to forward message: %s", e)
 
     @commands.hybrid_command(name="react_emoji", description="react_emoji <message_id> <number_of_option>")
-    @commands.is_owner()
-    async def react_emoji(self, ctx, message_id, number_of_option):
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    async def react_emoji(self, ctx: commands.Context, message_id, number_of_option):
         """
         React emoji on a message.
 
@@ -59,19 +84,21 @@ class MessageHandler(commands.Cog):
             The context in which the command was invoked.
         message_id : int
             The ID of the message to be react.
-        number_of_option : int
+        number_of_option : str
             The number of option to react.
-
-        Notes
-        -----
-        This command is restricted to the bot owner.
         """
-        try:
-            message = await ctx.fetch_message(message_id)
+        if not self.convertible_to_int(message_id):
+            await ctx.send("Warning: The message_id must be an integer.", ephemeral=True)
 
-            # Prepare reaction emojis for the voting
-            for i in range(number_of_option):
-                # These are unicode of regional_indicator A-Z
+        elif not self.convertible_to_int(number_of_option):
+            await ctx.send("Warning: The number_of_option must be an integer.", ephemeral=True)
+
+        else:
+            try:
+                number_of_option = int(number_of_option)
+                message = await ctx.fetch_message(message_id)
+
+                # Prepare reaction emojis for the voting
                 emojis = [
                     "\U0001F1E6", "\U0001F1E7", "\U0001F1E8",
                     "\U0001F1E9", "\U0001F1EA", "\U0001F1EB",
@@ -81,16 +108,18 @@ class MessageHandler(commands.Cog):
                     "\U0001F1F5", "\U0001F1F6", "\U0001F1F7",
                     "\U0001F1F8", "\U0001F1F9", "\U0001F1FA",
                     "\U0001F1FB", "\U0001F1FC", "\U0001F1FD",
-                    "\U0001F1FE","\U0001F1FF"
+                    "\U0001F1FE", "\U0001F1FF"
                 ]
-                await message.add_reaction(emojis[i])
 
-        except Exception as e:
-            logger.exception("Failed to send announcement: %s", e)
+                for i in range(number_of_option):
+                    await message.add_reaction(emojis[i])
+
+            except Exception as e:
+                logger.exception("Failed to send announcement: %s", e)
 
     @commands.hybrid_command(name="announce", description="send a predefine embed announcement")
-    @commands.is_owner()
-    async def announce(self, ctx):
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    async def announce(self, ctx: commands.Context):
         """
         Send an embed message to the current channel and send an ephemeral confirmation.
 
@@ -101,7 +130,6 @@ class MessageHandler(commands.Cog):
 
         Notes
         -----
-        This command is restricted to the bot owner.
         This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
         """
         try:
@@ -111,7 +139,7 @@ class MessageHandler(commands.Cog):
 
             # Sign bot on embed message
             text = self.bot.user.display_name
-            icon_url = self.bot.user.avatar.url
+            icon_url = self.get_avatar_url(self.bot.user)
             embed.set_footer(text=text, icon_url=icon_url)
 
             await ctx.channel.send(embed=embed)
@@ -121,8 +149,8 @@ class MessageHandler(commands.Cog):
             logger.exception("Failed to send announcement: %s", e)
 
     @commands.hybrid_command(name="edit_embed", description="edit to a embed message")
-    @commands.is_owner()
-    async def edit_embed(self, ctx, message_id):
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    async def edit_embed(self, ctx: commands.Context, message_id):
         """
         Edit the specified embed message with a draft file.
 
@@ -135,27 +163,30 @@ class MessageHandler(commands.Cog):
 
         Notes
         -----
-        This command is restricted to the bot owner.
         This function assumes the embed message is defined at the "languages/<language>/templates" embed.json file.
         """
-        try:
-            # Construct embed message
-            draft = utilities.load_json(settings.embed_message_template)
-            embed = discord.Embed.from_dict(draft)
+        if not self.convertible_to_int(message_id):
+            await ctx.send("Warning: The message_id must be an integer.", ephemeral=True)
 
-            # Sign bot on embed message
-            text = self.bot.user.display_name
-            icon_url = self.bot.user.avatar.url
-            embed.set_footer(text=text, icon_url=icon_url)
+        else:
+            try:
+                # Construct embed message
+                draft = utilities.load_json(settings.embed_message_template)
+                embed = discord.Embed.from_dict(draft)
 
-            message = await ctx.fetch_message(message_id)
-            await message.edit(embed=embed)
+                # Sign bot on embed message
+                text = self.bot.user.display_name
+                icon_url = self.get_avatar_url(self.bot.user)
+                embed.set_footer(text=text, icon_url=icon_url)
 
-        except Exception as e:
-            logger.exception("Failed to edit announcement: %s", e)
+                message = await ctx.fetch_message(message_id)
+                await message.edit(embed=embed)
+
+            except Exception as e:
+                logger.exception("Failed to edit announcement: %s", e)
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         """
         Handle the event when a message is sent in the channel. Respond based on message sender and content.
 
@@ -168,6 +199,10 @@ class MessageHandler(commands.Cog):
 
         # Ignore message sent by bot
         if message.author == self.bot.user:
+            return
+
+        # Ignore messages in a specific channel
+        if message.channel.id == self.guild["channel"]["conference"]["id"]:
             return
 
         # Ignore emoji, gif and links
@@ -185,7 +220,7 @@ class MessageHandler(commands.Cog):
         if reply:
             await message.channel.send(draft)
 
-    def check_all_keywords(self, content):
+    def check_all_keywords(self, content: str) -> Tuple[bool, str]:
         """
         Check whether the message contains all keywords for a topic.
 
@@ -207,7 +242,7 @@ class MessageHandler(commands.Cog):
                     return True, random.choice(data["reply"])
         return False, ""
 
-    def check_any_keywords(self, content):
+    def check_any_keywords(self, content: str) -> Tuple[bool, str]:
         """
         Check whether the message contains any keywords for a topic.
 
@@ -229,7 +264,7 @@ class MessageHandler(commands.Cog):
                     return True, random.choice(data["reply"])
         return False, ""
 
-    def check_vip_sender(self, message):
+    def check_vip_sender(self, message: discord.Message) -> Tuple[bool, str]:
         """
         Check whether the message is sent by a VIP.
 
@@ -256,7 +291,7 @@ class MessageHandler(commands.Cog):
                         return True, random.choice(data["topic"][keyword]["reply"])
         return False, ""
 
-    def check_vip_mentioned(self, message):
+    def check_vip_mentioned(self, message: discord.Message) -> Tuple[bool, str]:
         """
         Check whether the message mentioned a VIP.
 
@@ -284,5 +319,5 @@ class MessageHandler(commands.Cog):
         return False, ""
 
 
-async def setup(bot):
+async def setup(bot: commands.Bot):
     await bot.add_cog(MessageHandler(bot))

@@ -6,17 +6,16 @@ import settings
 import utilities
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class ExtensionManager(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.bot_message = utilities.load_json(settings.bot_message_template)
 
     @commands.hybrid_command(name="load", help="load <filename>")
     @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
-    async def load(self, ctx, extension):
+    async def load(self, ctx: commands.Context, extension: str):
         """
         Load an extension into the bot.
 
@@ -26,14 +25,10 @@ class ExtensionManager(commands.Cog):
             Represent the context in which a command is being invoked.
         extension : str
             The name of the extension to be loaded or "all" to load all extensions.
-
-        Notes
-        -----
-        This command is restricted to the guild admin and tester.
         """
 
         @staticmethod
-        async def load_helper(file):
+        async def load_helper(file: str):
             """
             Helper function to load a single extension.
 
@@ -49,19 +44,19 @@ class ExtensionManager(commands.Cog):
 
                 except commands.errors.MissingAnyRole as mar:
                     logger.exception("%s failed to load %s: %s", ctx.author, file, mar)
-                    await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["mar"])
 
                 except commands.ExtensionNotFound as enf:
                     logger.exception("%s failed to load %s: %s", ctx.author, file, enf)
-                    await ctx.send(self.bot_message["exception"]["enf"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["enf"].format(file=file))
 
                 except commands.ExtensionAlreadyLoaded as eal:
                     logger.exception("%s failed to load %s: %s", ctx.author, file, eal)
-                    await ctx.send(self.bot_message["exception"]["eal"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["eal"].format(file=file))
 
                 else:
                     logger.info("%s loaded %s", ctx.author, file)
-                    await ctx.send(self.bot_message["load"]["succeeded"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["load"]["succeeded"].format(file=file))
 
         extension = extension.lower()
         if extension == "all":
@@ -73,7 +68,7 @@ class ExtensionManager(commands.Cog):
 
     @commands.hybrid_command(name="unload", help="unload <filename>")
     @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
-    async def unload(self, ctx, extension):
+    async def unload(self, ctx: commands.Context, extension: str):
         """
         Unload an extension from the bot.
 
@@ -83,14 +78,10 @@ class ExtensionManager(commands.Cog):
             Represent the context in which a command is being invoked.
         extension : str
             The name of the extension to be unloaded or "all" to unload all extensions.
-
-        Notes
-        -----
-        This command is restricted to the guild admin and tester.
         """
 
         @staticmethod
-        async def unload_helper(file):
+        async def unload_helper(file: str):
             """
             Helper function to unload a single extension.
 
@@ -106,19 +97,19 @@ class ExtensionManager(commands.Cog):
 
                 except commands.errors.MissingAnyRole as mar:
                     logger.exception("%s failed to unload %s: %s", ctx.author, file, mar)
-                    await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["mar"])
 
                 except commands.ExtensionNotFound as enf:
                     logger.exception("%s failed to unload %s: %s", ctx.author, file, enf)
-                    await ctx.send(self.bot_message["exception"]["enf"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["enf"].format(file=file))
 
                 except commands.ExtensionNotLoaded as enl:
                     logger.exception("%s failed to unload %s: %s", ctx.author, file, enl)
-                    await ctx.send(self.bot_message["exception"]["enl"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["exception"]["enl"].format(file=file))
 
                 else:
                     logger.info("%s unloaded %s", ctx.author, file)
-                    await ctx.send(self.bot_message["unload"]["succeeded"].format(file=file), ephemeral=True)
+                    await ctx.send(self.bot_message["unload"]["succeeded"].format(file=file))
 
         extension = extension.lower()
         if extension == "all":
@@ -130,7 +121,7 @@ class ExtensionManager(commands.Cog):
 
     @commands.hybrid_command(name="reload", help="reload <filename>")
     @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
-    async def reload(self, ctx, extension):
+    async def reload(self, ctx: commands.Context, extension: str):
         """
         Reload an extension in the bot.
 
@@ -140,14 +131,10 @@ class ExtensionManager(commands.Cog):
             Represent the context in which a command is being invoked.
         extension : str
             The name of the extension to be reloaded or "all" to reload all extensions.
-
-        Notes
-        -----
-        This command is restricted to the guild admin and tester.
         """
 
         @staticmethod
-        async def reload_helper(file):
+        async def reload_helper(file: str):
             """
             Helper function to reload a single extension.
 
@@ -163,19 +150,19 @@ class ExtensionManager(commands.Cog):
 
             except commands.errors.MissingAnyRole as mar:
                 logger.exception("%s failed to reload %s: %s", ctx.author, file, mar)
-                await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+                await ctx.send(self.bot_message["exception"]["mar"])
 
             except commands.ExtensionNotFound as enf:
                 logger.exception("%s failed to reload %s: %s", ctx.author, file, enf)
-                await ctx.send(self.bot_message["exception"]["enf"].format(file=file), ephemeral=True)
+                await ctx.send(self.bot_message["exception"]["enf"].format(file=file))
 
             except commands.ExtensionNotLoaded as enl:
                 logger.exception("%s failed to reload %s: %s", ctx.author, file, enl)
-                await ctx.send(self.bot_message["exception"]["enl"].format(file=file), ephemeral=True)
+                await ctx.send(self.bot_message["exception"]["enl"].format(file=file))
 
             else:
                 logger.info("%s reloaded %s", ctx.author, file)
-                await ctx.send(self.bot_message["reload"]["succeeded"].format(file=file), ephemeral=True)
+                await ctx.send(self.bot_message["reload"]["succeeded"].format(file=file))
 
         extension = extension.lower()
         if extension == "all":
@@ -186,5 +173,5 @@ class ExtensionManager(commands.Cog):
             await reload_helper(extension)
 
 
-async def setup(bot):
+async def setup(bot: commands.Bot):
     await bot.add_cog(ExtensionManager(bot))

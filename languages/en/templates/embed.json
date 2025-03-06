@@ -1,10 +1,20 @@
 {
-    "title": "Reaction Roles",
-    "description": "REFERENCE TO discord.Embed.from_dict() TO SEE HOW TO CONSTRUCTURE AN EMBED MESSAGE\nAdd reaction to get the corresponding role\nIf you want to receive relevant messages.",
+    "title": "class discord.Embed",
+    "description": "Please refer to discord.Embed https://discordpy.readthedocs.io/en/stable/api.html?highlight=embed#discord.Embed construct embed message.", 
     "fields": [
         {
-            "name": ":emoji_name: Role Name",
-            "value": "<@&1234567890123456789>",
+            "name": "<name>",
+            "value": "<value>",
+            "inline": false
+        }, 
+        {
+            "name": "<name>",
+            "value": "<value>",
+            "inline": false
+        }, 
+        {
+            "name": "<name>",
+            "value": "<value>",
             "inline": false
         }
     ]

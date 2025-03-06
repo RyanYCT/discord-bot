@@ -22,43 +22,6 @@
         "succeeded": "Set activity succeeded.",
         "failed": "Set activity failed."
     },
-    "activity": {
-        "application_id": "{id}",
-        "name": "{name}",
-        "url": "{url}",
-        "type": "{type}",
-        "state": "{state}",
-        "details": "{details}",
-        "platform": "{platform}",
-        "timestamps": {
-            "start": "{start}",
-            "end": "{end}"
-        },
-        "assets": {
-            "large_image": "{large_image}",
-            "large_text": "{large_text}",
-            "small_image": "{small_image}",
-            "small_text": "{small_text}"
-        },
-        "party": {
-            "id": "{id}",
-            "size": [
-                "{current_size}",
-                "{maximum_size}"
-            ]
-        },
-        "buttons": [
-            "{b1}",
-            "{b2}",
-            "{b3}"
-        ],
-        "emoji": "{emoji}",
-        "custom": {
-            "name": "{name}",
-            "emoji": "{emoji}",
-            "type": "{type}"
-        }
-    },
     "load": {
         "succeeded": "Extension {file} is loaded"
     },

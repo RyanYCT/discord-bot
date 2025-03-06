@@ -1,31 +1,36 @@
 {
-    "bot": {
-        "id": 1234567890123456789,
+    "user1": {
+        "id": 123456789012345678,
         "topic": {
             "be_mentioned": {
-                "chance": 100, 
-                "keyword": ["<@1234567890123456789>", "bot"], 
-                "reply": ["Hi", "Hello"]
+                "chance": 100,
+                "keyword": ["<@123456789012345678>", "bot"],
+                "reply": ["Reply 5"]
+            },
+            "greetings": {
+                "chance": 100,
+                "keyword": ["<@123456789012345678>", "Hi"],
+                "reply": ["Hello"]
             }
         }
-    }, 
-    "vip1": {
-        "id": 1234567890123456789, 
+    },
+    "user2": {
+        "id": 987654321098765432,
         "topic": {
             "be_mentioned": {
-                "chance": 100, 
-                "keyword": ["<@1234567890123456789"], 
-                "reply": ["someone mentioned you, <@1234567890123456789>"]
-            }
-        }
-    }, 
-    "vip2": {
-        "id": 1234567890123456789, 
-        "topic": {
-            "best": {
-                "chance": 33, 
-                "keyword": ["who is the best"], 
-                "reply": ["definitely <@1234567890123456789>"]
+                "chance": 100,
+                "keyword": ["<@987654321098765432>", "user2"],
+                "reply": ["Reply 6"]
+            },
+            "bye": {
+                "chance": 100,
+                "keyword": ["<@987654321098765432>", "Bye"],
+                "reply": ["Goodbye"]
+            },
+            "goodnight": {
+                "chance": 100,
+                "keyword": ["<@987654321098765432>", "Good Night"],
+                "reply": ["Good night"]
             }
         }
     }

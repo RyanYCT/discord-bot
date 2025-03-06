@@ -7,17 +7,18 @@ from discord.ext import commands
 import settings
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
+intents.reactions = True
+
 
 class GuildBot(commands.Bot):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(command_prefix="/", intents=intents)
 
-    async def on_ready(self):
+    async def on_ready(self) -> None:
         """
         Load all cog files, and sync commands at launch.
         """
@@ -25,6 +26,7 @@ class GuildBot(commands.Bot):
         logger.info("Python %s", sys.version)
         logger.info("discord.py %s", discord.__version__)
         logger.info("Logged in as %s (%s)", self.user.name, self.user.id)
+        logger.info("Serving guilds %s", self.guilds)
 
         # Load listed cog files
         number_of_cogs = len(settings.cogs)

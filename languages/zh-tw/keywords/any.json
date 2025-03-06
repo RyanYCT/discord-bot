@@ -1,29 +1,14 @@
 {
     "topic": {
-        "want": {
+        "topic1": {
             "chance": 33,
-            "keyword": ["要不要", "要嗎", "為甚麼不要"],
-            "reply": ["不要", "問就是不要"]
+            "keyword": ["關鍵字5", "關鍵字6"],
+            "reply": ["回覆3"]
         },
-        "ok": {
-            "chance": 33,
-            "keyword": ["好不好", "好嗎", "為甚麼不好"],
-            "reply": ["不好", "問就是不好"]
-        },
-        "congrats": {
+        "topic2": {
             "chance": 66,
-            "keyword": ["恭喜", "有狗"],
-            "reply": ["恭喜"]
-        },
-        "good_morning": {
-            "chance": 66,
-            "keyword": ["早安", "安安"],
-            "reply": ["早安"]
-        },
-        "good_night": {
-            "chance": 66,
-            "keyword": ["晚安", "睡了", "好睏"],
-            "reply": ["晚安大小姐"]
+            "keyword": ["關鍵字7"],
+            "reply": ["回覆4"]
         }
     }
 }

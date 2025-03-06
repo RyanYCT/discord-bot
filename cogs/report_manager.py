@@ -2,6 +2,7 @@ import json
 import locale
 import logging
 from datetime import datetime
+from typing import Dict, Any
 
 import discord
 import pandas as pd
@@ -12,17 +13,17 @@ import settings
 import utilities
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+
 
 locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 class ReportManager(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.bot_message = utilities.load_json(settings.bot_message_template)
 
     @staticmethod
-    def convertible_to_int(string):
+    def convertible_to_int(string: str) -> bool:
         try:
             int(string)
             return True
@@ -30,15 +31,36 @@ class ReportManager(commands.Cog):
             return False
 
     @staticmethod
-    def map_enhance(number):
+    def get_avatar_url(user: discord.User) -> str:
+        """
+        In case the user object has no avatar, return the default avatar URL instead of None by default.
+
+        Parameters
+        ----------
+        user : discord.User
+            The user whose avatar URL needs to be retrieved.
+
+        Returns
+        -------
+        str
+            The avatar URL of the user.
+        """
+        try:
+            url = user.avatar.url
+        except AttributeError:
+            url = user.default_avatar.url
+        return url
+
+    @staticmethod
+    def map_enhance(number: int) -> str:
         enhance_map = {0: "_", 1: "I", 2: "II", 3: "III", 4: "IV", 5: "V"}
         return enhance_map.get(number, str("_"))
 
     @staticmethod
-    def format_thousands(number):
+    def format_thousands(number: int) -> str:
         return locale.format_string("%d", number, grouping=True)
 
-    def generate_report(self, json_string, template, report_type="overall", keyword=None):
+    def generate_report(self, json_string: Dict[str, Any], template: Dict[str, Any], report_type: str = "overall", keyword: str = None) -> discord.Embed:
         logger.debug(f"Generating report for {report_type=}, {keyword=}")
 
         # Extract data from the API responsed json string
@@ -52,7 +74,7 @@ class ReportManager(commands.Cog):
         embed.description = template["description"]
         # Message footer
         footer_text = template["footer"]["text"]
-        footer_icon_url = template["footer"]["icon_url"].format(icon_url=self.bot.user.avatar.url)
+        footer_icon_url = template["footer"]["icon_url"].format(icon_url=self.get_avatar_url(self.bot.user))
         embed.set_footer(text=footer_text, icon_url=footer_icon_url)
         # Message body
         df = pd.DataFrame(report_data)
@@ -77,7 +99,7 @@ class ReportManager(commands.Cog):
                 # Field value
                 item_price = self.format_thousands(row["price"])
                 item_profit = self.format_thousands(row["profit"])
-                item_rate = f"{row["rate"]:.3f}"
+                item_rate = f"{row['rate']:.3f}"
                 field_value = template["fields"][i]["value"].format(
                     price=item_price, 
                     profit=item_profit, 
@@ -98,10 +120,10 @@ class ReportManager(commands.Cog):
         embed.add_field(name=ps_name, value=ps_value, inline=ps_inline)
         embed.timestamp = report_time
         return embed
-    
+
     @commands.hybrid_command(name="report", description="report <option>")
-    @commands.has_any_role(settings.guild["role"]["doge"]["id"])
-    async def report(self, ctx, option: str):
+    @commands.has_any_role(settings.guild["role"]["subscriber"]["id"])
+    async def report(self, ctx: commands.Context, option: str) -> None:
         """
         Fetches the latest report from the API server and sends it as an embedded message.
 
@@ -123,10 +145,6 @@ class ReportManager(commands.Cog):
         ------
         requests.exceptions.RequestException
             If there is an error while making the request to the API server.
-
-        Notes
-        -----
-        This command is restricted to the doge role.
         """
         try:
             # Requests latest report from API server
@@ -148,12 +166,35 @@ class ReportManager(commands.Cog):
                 await ctx.send(embed=self.generate_report(json_string, template=template, report_type=report_type, keyword=keyword))
 
             else:
-                logger.warning("status code: %d", response.status_code, ephemeral=True)
-                await ctx.send(f"status code: {response.status_code}", ephemeral=True)
+                logger.warning("status code: %d", response.status_code)
+                await ctx.send(f"status code: {response.status_code}")
 
         except requests.exceptions.RequestException as re:
-            await ctx.send(f"An error occurred: {re}", ephemeral=True)
+            await ctx.send(f"An error occurred: {re}")
+
+    @commands.hybrid_command(name="ping", description="Check the status of the API server")
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
+    async def ping(self, ctx: commands.Context) -> None:
+        """
+        Checks the status of the API server and sends a message with the status.
+
+        Parameters
+        ----------
+        ctx : discord.ext.commands.Context
+            The context in which the command was invoked.
+        """
+        try:
+            response = requests.get(f"{settings.api_url}/ping")
+            if response.status_code == 200:
+                await ctx.send("API server is online and reachable.")
+            else:
+                logger.warning("status code: %d", response.status_code)
+                await ctx.send(f"API server returned status code: {response.status_code}")
+
+        except requests.exceptions.RequestException as re:
+            logger.exception("Failed to ping API server: %s", re)
+            await ctx.send(f"An error occurred while pinging the API server: {re}")
 
 
-async def setup(bot):
+async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(ReportManager(bot))

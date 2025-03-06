@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - DISCORD_GUILD_LANGUAGE=${DISCORD_GUILD_LANGUAGE}
+      - GUILD_ID=${GUILD_ID}
+      - LOG_CHANNEL_ID=${LOG_CHANNEL_ID}
+      - WELCOME_CHANNEL_ID=${WELCOME_CHANNEL_ID}
+      - TEST_CHANNEL_ID=${TEST_CHANNEL_ID}
+      - ROLE_CHANNEL_ID=${ROLE_CHANNEL_ID}
+      - CONFERENCE_CHANNEL_ID=${CONFERENCE_CHANNEL_ID}
+      - ADMIN_ROLE_ID=${ADMIN_ROLE_ID}
+      - TESTER_ROLE_ID=${TESTER_ROLE_ID}
+      - MEMBER_ROLE_ID=${MEMBER_ROLE_ID}
+      - SUBSCRIBER_ROLE_ID=${SUBSCRIBER_ROLE_ID}
+      - ROLE_MESSAGE_ID=${ROLE_MESSAGE_ID}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - API_URL=${API_URL}
+    volumes:
+      - .:/app
+    ports:
+      - "80:80"

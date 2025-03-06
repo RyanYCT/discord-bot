@@ -1,17 +1,108 @@
 {
     "join": {
-        "title": "A new member joined",
-        "description": "{mention}\n Nickname: {nickname}\n Username: {username}\n ID: {id}",
-        "welcome": "{mention} Welcome to the {guild}!\nPlease follow the naming convention\n> FamilyName(Nickname_Optional)"
+        "title": "Member Joined",
+        "description": "{mention}",
+        "fields": [
+            {
+                "name": "__Discord Account__",
+                "value": "{id}",
+                "inline": false
+            },
+            {
+                "name": "Display Name",
+                "value": "{displayname}",
+                "inline": true
+            },
+            {
+                "name": "Username",
+                "value": "{username}",
+                "inline": true
+            },
+            {
+                "name": "Creation Date",
+                "value": "{date}",
+                "inline": false
+            }
+        ],
+        "welcome": "{mention} Welcome to {guild}!\nPlease reply with your family name and nickname.\n> Example: MyName(MyNickName)"
     },
     "remove": {
-        "title": "A member removed",
-        "description": "{mention}\n Nickname: {nickname}\n Username: {username}\n ID: {id}\nReason: {reason}"
+        "title": "Member Left",
+        "description": "{mention}\n Nickname: {nickname}\n Username: {username}\n ID: {id}"
     },
     "update": {
         "displayname": {
-            "title": "A member's nickname updated",
+            "title": "Member Nickname Updated",
             "description": "{mention}\n Nickname: {nickname_before} -> {nickname_after}\n Username: {username}\n ID: {id}"
         }
+    },
+    "onboard": {
+        "form": {
+            "title": "Welcome!",
+            "familyname": {
+                "label": "Family Name",
+                "placeholder": "Example: MyName"
+            },
+            "nickname": {
+                "label": "MyNickName (Optional)",
+                "placeholder": "Example: MyName(MyNickName)"
+            },
+            "message": {
+                "label": "Join Request (Optional)",
+                "placeholder": "If introduced by a friend, please fill in the friend's name.\nThe admin will process it as soon as possible."
+            }
+        },
+        "decision": {
+            "approve": "Approve",
+            "decline": "Decline"
+        }
+    },
+    "apply": {
+        "title": "Join Request",
+        "description": "{mention}",
+        "fields": [
+            {
+                "name": "__Discord Account__",
+                "value": "{id}",
+                "inline": false
+            },
+            {
+                "name": "Display Name",
+                "value": "{displayname}",
+                "inline": true
+            },
+            {
+                "name": "Username",
+                "value": "{username}",
+                "inline": true
+            },
+            {
+                "name": "Creation Date",
+                "value": "{date}",
+                "inline": false
+            },
+            {
+                "name": "__Application Form__",
+                "value": " ",
+                "inline": false
+            },
+            {
+                "name": "Family Name",
+                "value": "{familyname}",
+                "inline": true
+            },
+            {
+                "name": "Nickname",
+                "value": "{nickname}",
+                "inline": true
+            },
+            {
+                "name": "Message/Introducer",
+                "value": "{message}",
+                "inline": false
+            }
+        ],
+        "response": "Please wait, processing your request.",
+        "error": "An error occurred while submitting the request."
     }
 }

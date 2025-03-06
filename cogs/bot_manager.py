@@ -7,19 +7,18 @@ import settings
 import utilities
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class BotManager(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.bot_message = utilities.load_json(settings.bot_message_template)
 
     @commands.hybrid_command(name="sync", help="sync <option>")
     @commands.is_owner()
-    async def sync(self, ctx, option):
+    async def sync(self, ctx: commands.Context, option: str):
         """
-        Sync commands with Discord.
+        Sync commands with Discord. Use this when new command no show in Discord client.
 
         Parameters
         ----------
@@ -35,36 +34,32 @@ class BotManager(commands.Cog):
         -------
         None
             Sends a confirmation message in the Discord channel.
-
-        Notes
-        -----
-        This command is restricted to the bot owner.
         """
         try:
             match option:
                 case "guild" | "g" | ".":
                     await self.bot.tree.sync(guild=ctx.guild)
-                    await ctx.send(self.bot_message["sync"]["succeeded"], ephemeral=True)
+                    await ctx.send(self.bot_message["sync"]["succeeded"])
 
                 case "global" | "gl" | "..":
                     await self.bot.tree.sync()
-                    await ctx.send(self.bot_message["sync"]["succeeded"], ephemeral=True)
+                    await ctx.send(self.bot_message["sync"]["succeeded"])
 
                 case _:
                     logger.info("%s failed to sync commands: invalid option %s", ctx.author, option)
-                    await ctx.send(self.bot_message["sync"]["invalid"], ephemeral=True)
+                    await ctx.send(self.bot_message["sync"]["invalid"])
 
         except commands.errors.MissingAnyRole as mar:
             logger.exception("%s failed to sync commands: %s", ctx.author, mar)
-            await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+            await ctx.send(self.bot_message["exception"]["mar"])
 
         except Exception as e:
             logger.exception("%s failed to sync commands: %s", ctx.author, e)
-            await ctx.send(self.bot_message["sync"]["e"], ephemeral=True)
+            await ctx.send(self.bot_message["sync"]["e"])
 
     @commands.hybrid_command(name="shutdown", help="Shut down the bot.")
     @commands.has_any_role(settings.guild["role"]["admin"]["id"])
-    async def shutdown(self, ctx):
+    async def shutdown(self, ctx: commands.Context):
         """
         Shut down the bot.
 
@@ -72,24 +67,20 @@ class BotManager(commands.Cog):
         ----------
         ctx : commands.Context
             Represent the context in which a command is being invoked.
-
-        Notes
-        -----
-        This command is restricted to the guild admin.
         """
         try:
             await self.bot.close()
 
         except commands.errors.MissingAnyRole as mar:
             logger.exception("%s failed to shut down the bot: %s", ctx.author, mar)
-            await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+            await ctx.send(self.bot_message["exception"]["mar"])
 
         else:
-            await ctx.send(self.bot_message["shutdown"]["succeeded"], ephemeral=True)
+            await ctx.send(self.bot_message["shutdown"]["succeeded"])
 
     @commands.hybrid_command(name="loaded_cogs", help="Show loaded cogs.")
-    @commands.is_owner()
-    async def loaded_cogs(self, ctx):
+    @commands.has_any_role(settings.guild["role"]["tester"]["id"])
+    async def loaded_cogs(self, ctx: commands.Context):
         """
         Show loaded cogs.
 
@@ -97,10 +88,6 @@ class BotManager(commands.Cog):
         ----------
         ctx : commands.Context
             Represent the context in which a command is being invoked.
-
-        Notes
-        -----
-        This command is restricted to the bot owner.
         """
         # Construct the embed message
         title = self.bot_message["loaded_cogs"]["title"]
@@ -113,11 +100,11 @@ class BotManager(commands.Cog):
         embed.add_field(name=name, value=value, inline=False)
 
         logger.info("%s show loaded cogs: %s", ctx.author, value)
-        await ctx.send(embed=embed, ephemeral=True)
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command(name="set_activity", help="set_activity <name>")
     @commands.is_owner()
-    async def set_activity(self, ctx, name):
+    async def set_activity(self, ctx: commands.Context, name: str):
         """
         Set the activity of the bot.
 
@@ -136,8 +123,6 @@ class BotManager(commands.Cog):
 
         Notes
         -----
-        This command is restricted to the bot owner.
-
         - Currently, only the Game activity type is supported.
         - The bot's status is set to "do not disturb" when a custom activity is set.
         - Future updates may include more activity types and customization options.
@@ -149,22 +134,22 @@ class BotManager(commands.Cog):
 
             case _:
                 activity = discord.Game(name=name)
-                status = discord.Status.do_not_disturb
+                status = discord.Status.online
 
         try:
             await self.bot.change_presence(activity=activity, status=status)
 
         except commands.errors.MissingAnyRole as mar:
             logger.exception("%s failed to set activity: %s", ctx.author, mar)
-            await ctx.send(self.bot_message["exception"]["mar"], ephemeral=True)
+            await ctx.send(self.bot_message["exception"]["mar"])
 
         except Exception as e:
             logger.exception("%s failed to set activity: %s", ctx.author, e)
-            await ctx.send(self.bot_message["set_activity"]["failed"], ephemeral=True)
+            await ctx.send(self.bot_message["set_activity"]["failed"])
 
         else:
-            await ctx.send(self.bot_message["set_activity"]["succeeded"], ephemeral=True)
+            await ctx.send(self.bot_message["set_activity"]["succeeded"])
 
 
-async def setup(bot):
+async def setup(bot: commands.Bot):
     await bot.add_cog(BotManager(bot))

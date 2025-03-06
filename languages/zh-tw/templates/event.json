@@ -1,8 +1,30 @@
 {
     "join": {
         "title": "成員加入",
-        "description": "{mention}\n 暱稱: {nickname}\n 名稱: {username}\n ID: {id}",
-        "welcome": "{mention} 歡迎來到 {guild}！\n請回覆你的名稱及暱稱。"
+        "description": "{mention}",
+        "fields": [
+            {
+                "name": "__Discord 帳戶__",
+                "value": "{id}",
+                "inline": false
+            },
+            {
+                "name": "顯示名稱",
+                "value": "{displayname}",
+                "inline": true
+            },
+            {
+                "name": "使用者名稱",
+                "value": "{username}",
+                "inline": true
+            },
+            {
+                "name": "創建日期",
+                "value": "{date}",
+                "inline": false
+            }
+        ],
+        "welcome": "{mention} 歡迎來到 {guild}！\n請回覆你的家門及暱稱。\n> 例子: 我的名稱(暱稱)"
     },
     "remove": {
         "title": "成員離開",
@@ -13,5 +35,74 @@
             "title": "成員暱稱變更",
             "description": "{mention}\n 暱稱: {nickname_before} -> {nickname_after}\n 名稱: {username}\n ID: {id}"
         }
+    },
+    "onboard": {
+        "form": {
+            "title": "歡迎!", 
+            "familyname": {
+                "label": "家門名稱", 
+                "placeholder": "例子: 我的名稱"
+            }, 
+            "nickname": {
+                "label": "暱稱 (選填)", 
+                "placeholder": "例子: 我的名稱(暱稱)"
+            }, 
+            "message": {
+                "label": "加入申請 (選填)", 
+                "placeholder": "朋友介紹請填寫朋友名稱。\n管理員收到之後會盡快處理。"
+            }
+        }, 
+        "decision": {
+            "approve": "批准",
+            "decline": "拒絕"
+        }
+    },
+    "apply": {
+        "title": "加入申請",
+        "description": "{mention}",
+        "fields": [
+            {
+                "name": "__Discord 帳戶__",
+                "value": "{id}",
+                "inline": false
+            },
+            {
+                "name": "顯示名稱",
+                "value": "{displayname}",
+                "inline": true
+            },
+            {
+                "name": "使用者名稱",
+                "value": "{username}",
+                "inline": true
+            },
+            {
+                "name": "創建日期",
+                "value": "{date}",
+                "inline": false
+            },
+            {
+                "name": "__申請表格__",
+                "value": " ",
+                "inline": false
+            },
+            {
+                "name": "家門名稱",
+                "value": "{familyname}",
+                "inline": true
+            },
+            {
+                "name": "暱稱",
+                "value": "{nickname}",
+                "inline": true
+            },
+            {
+                "name": "訊息/介紹人",
+                "value": "{message}",
+                "inline": false
+            }
+        ],
+        "response": "請稍等，現在處理你的申請。",
+        "error": "提交申請時遇到問題。"
     }
 }

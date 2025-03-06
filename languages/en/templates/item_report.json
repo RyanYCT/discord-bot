@@ -1,105 +1,25 @@
 {
-    "title": "Result of {keyword}", 
-    "description": "(Order descending)", 
+    "title": "Search Results for {keyword}",
+    "description": "(Sorted by rate)",
     "fields": [
         {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        }, 
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
+            "name": "{enhance} : {name}",
+            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}",
             "inline": true
         },
         {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
+            "name": "{enhance} : {name}",
+            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}",
             "inline": true
         },
         {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
+            "name": "{enhance} : {name}",
+            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}",
             "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "{enhance} : {name}", 
-            "value": "Price: {price}\nProfit: {profit}\nRate: {odds}\nIn Stock: {stock}", 
-            "inline": true
-        },
-        {
-            "name": "p.s.", 
-            "value": "Price = Last Sold Price\nTax rate = 14.525%", 
-            "inline": false
         }
-    ], 
+    ],
     "footer": {
-        "text": "Report generation time", 
+        "text": "Report generation time",
         "icon_url": "{icon_url}"
     }
 }

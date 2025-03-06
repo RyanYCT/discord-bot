@@ -1,19 +1,14 @@
 {
     "topic": {
-        "breakfast": {
+        "topic1": {
             "chance": 100, 
-            "keyword": ["what", "breakfast", "eat", "?"], 
-            "reply": ["I have a post in DC about what I just had for breakfast."]
+            "keyword": ["keyword1", "keyword2", "?"], 
+            "reply": ["Reply for topic1."]
         }, 
-        "lunch": {
+        "topic2": {
             "chance": 100, 
-            "keyword": ["lunch", "?"],
-            "reply": ["OK"]
-        }, 
-        "dinner": {
-            "chance": 100, 
-            "keyword": ["dinner", "?"], 
-            "reply": ["NO"]
+            "keyword": ["keyword3", "keyword4", "?"], 
+            "reply": ["Reply for topic2."]
         }
     }
 }

@@ -1,29 +1,14 @@
 {
     "topic": {
-        "want": {
+        "topic3": {
             "chance": 33, 
-            "keyword": ["do you want", "want it", "why not"], 
-            "reply": ["no", "nope"]
+            "keyword": ["keyword5", "keyword6"], 
+            "reply": ["Reply for topic3."]
         }, 
-        "ok": {
-            "chance": 33, 
-            "keyword": ["okay", "ok", "why not"], 
-            "reply": ["no", "nope"]
-        }, 
-        "congrats": {
+        "topic4": {
             "chance": 66, 
-            "keyword": ["congrats"], 
-            "reply": ["congrats"]
-        }, 
-        "good_morning": {
-            "chance": 66, 
-            "keyword": ["good morning", "gm"], 
-            "reply": ["good morning"]
-        }, 
-        "good_night": {
-            "chance": 66, 
-            "keyword": ["good night", "gn", "sleepy"], 
-            "reply": ["ojosama, it's time to go to bed"]
+            "keyword": ["keyword7"], 
+            "reply": ["Reply for topic4."]
         }
     }
 }
