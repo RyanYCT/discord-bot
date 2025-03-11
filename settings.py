@@ -76,8 +76,7 @@ LOGGING_CONFIG = {
         "console": {
             "level": os.getenv("LOG_LEVEL", "INFO"),
             "class": "logging.StreamHandler",
-            "formatter": "standard",
-            "stream": "ext://sys.stdout",
+            "formatter": "standard",            
         },
     },
     "loggers": {
