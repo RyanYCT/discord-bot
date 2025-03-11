@@ -21,5 +21,6 @@ services:
       - API_URL=${API_URL}
     volumes:
       - .:/app
+      - ./.languages:/app/languages
     ports:
       - "80:80"
