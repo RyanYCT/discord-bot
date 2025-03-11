@@ -53,13 +53,11 @@ guild: Dict[str, Any] = {
         "admin": {"id": int(os.getenv("ADMIN_ROLE_ID")), "emoji": None},
         "tester": {"id": int(os.getenv("TESTER_ROLE_ID")), "emoji": None},
         "member": {"id": int(os.getenv("MEMBER_ROLE_ID")), "emoji": None},
-        "subscriber": {"id": int(os.getenv("SUBSCRIBER_ROLE_ID")), "emoji": "🔔"},
         "doge": {"id": int(os.getenv("DOGE_ROLE_ID")), "emoji": "dog06"},
         "farmer": {"id": int(os.getenv("FARMER_ROLE_ID")), "emoji": "farm_merge_valley"},
         "researcher": {"id": int(os.getenv("RESEARCHER_ROLE_ID")), "emoji": "mhw_research_commission"},
     },
     "emoji": {
-        "🔔": {"role": "subscriber"},
         "farm_merge_valley": {"role": "farmer"},
         "dog06": {"role": "doge"},
         "mhw_research_commission": {"role": "researcher"},

@@ -122,7 +122,7 @@ class ReportManager(commands.Cog):
         return embed
 
     @commands.hybrid_command(name="report", description="report <option>")
-    @commands.has_any_role(settings.guild["role"]["subscriber"]["id"])
+    @commands.has_any_role(settings.guild["role"]["doge"]["id"])
     async def report(self, ctx: commands.Context, option: str) -> None:
         """
         Fetches the latest report from the API server and sends it as an embedded message.
