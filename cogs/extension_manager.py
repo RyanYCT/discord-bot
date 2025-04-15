@@ -5,7 +5,7 @@ from discord.ext import commands
 import settings
 import utilities
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("extension_manager")
 
 
 class ExtensionManager(commands.Cog):

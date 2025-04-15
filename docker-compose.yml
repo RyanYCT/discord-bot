@@ -3,7 +3,9 @@ version: '3.8'
 services:
   bot:
     build: .
+    container_name: meowfululu
     environment:
+      - TZ=Asia/Hong_Kong
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - DISCORD_GUILD_LANGUAGE=${DISCORD_GUILD_LANGUAGE}
       - GUILD_ID=${GUILD_ID}
@@ -15,7 +17,9 @@ services:
       - ADMIN_ROLE_ID=${ADMIN_ROLE_ID}
       - TESTER_ROLE_ID=${TESTER_ROLE_ID}
       - MEMBER_ROLE_ID=${MEMBER_ROLE_ID}
-      - SUBSCRIBER_ROLE_ID=${SUBSCRIBER_ROLE_ID}
+      - DOGE_ROLE_ID=${DOGE_ROLE_ID}
+      - FARMER_ROLE_ID=${FARMER_ROLE_ID}
+      - RESEARCHER_ROLE_ID=${RESEARCHER_ROLE_ID}
       - ROLE_MESSAGE_ID=${ROLE_MESSAGE_ID}
       - LOG_LEVEL=${LOG_LEVEL}
       - API_URL=${API_URL}
@@ -23,4 +27,10 @@ services:
       - .:/app
       - ./.languages:/app/languages
     ports:
-      - "80:80"
+      - "8001:80"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true

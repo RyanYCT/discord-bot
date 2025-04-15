@@ -1,4 +1,5 @@
 import logging
+import traceback
 from datetime import datetime
 
 import discord
@@ -7,9 +8,7 @@ from discord.ext import commands
 import settings
 import utilities
 
-import traceback
-
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("member_event")
 
 
 class MemberEvent(commands.Cog):

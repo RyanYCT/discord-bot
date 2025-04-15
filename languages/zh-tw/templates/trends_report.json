@@ -1,0 +1,20 @@
+{
+    "title": "銷量報告",
+    "description": "以下是交易量最多的物品 (按量排序)",
+    "fields": [
+        {
+            "name": "{enhance} : {name}", 
+            "value": "類別: {category}\n價格: {price}\n待售: {stock}\n銷量變化: {volumechange}\日均成交: {averagetradesperday}", 
+            "inline": true
+        }, 
+        {
+            "name": "附註", 
+            "value": "每日平均交易量僅供參考", 
+            "inline": false
+        }
+    ],
+    "footer": {
+        "text": "報告產生時間", 
+        "icon_url": "{icon_url}"
+    }
+}
