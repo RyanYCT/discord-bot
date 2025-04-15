@@ -1,4 +1,5 @@
-import logging.config
+import logging
+from logging.config import dictConfig
 
 from dotenv import load_dotenv
 
@@ -9,10 +10,10 @@ from guild_bot import GuildBot
 load_dotenv()
 
 # Apply logging configuration
-logging.config.dictConfig(settings.LOGGING_CONFIG)
+dictConfig(settings.LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
 
 def run() -> None:
-    logger = logging.getLogger(__name__)
     logger.info("Starting the bot...")
     bot = GuildBot()
     bot.run(settings.token, log_handler=None, root_logger=False)

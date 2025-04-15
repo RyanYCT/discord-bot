@@ -6,7 +6,7 @@ from discord.ext import commands
 import settings
 import utilities
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("guild_manager")
 
 
 class GuildManager(commands.Cog):

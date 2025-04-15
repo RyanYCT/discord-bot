@@ -1,0 +1,20 @@
+{
+    "title": "Sales Trends",
+    "description": "Here are the most hotly traded items (sorted by volume)",
+    "fields": [
+        {
+            "name": "{enhance} : {name}",
+            "value": "Category: {category}\nPrice: {price}\nProfit: {profit}\nIn Stock: {stock}\nVolume Change: {volumechange}\nAverage Trades: {averagetradesperday}",
+            "inline": true
+        },
+        {
+            "name": "p.s.",
+            "value": "Daily average trading volume is for reference only",
+            "inline": false
+            }
+    ],
+    "footer": {
+        "text": "Report generate time",
+        "icon_url": "{icon_url}"
+    }
+}

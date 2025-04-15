@@ -1,6 +1,7 @@
 import os
 import pathlib
-from typing import Dict, Any
+from typing import Any, Dict
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +26,8 @@ bot_message_template = templates_directory / "bot.json"
 embed_message_template = templates_directory / "embed.json"
 event_message_template = templates_directory / "event.json"
 item_report_template = templates_directory / "item_report.json"
-overall_report_template = templates_directory / "overall_report.json"
+profit_report_template = templates_directory / "profit_report.json"
+trends_report_template = templates_directory / "trends_report.json"
 vote_message_template = templates_directory / "vote.json"
 vote_emojis = templates_directory / "vote_emojis.json"
 
@@ -68,27 +70,29 @@ LOGGING_CONFIG = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "standard": {
-            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        "default": {
+            "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
         },
     },
     "handlers": {
         "console": {
             "level": os.getenv("LOG_LEVEL", "INFO"),
             "class": "logging.StreamHandler",
-            "formatter": "standard",            
+            "formatter": "default",            
         },
     },
     "loggers": {
-        "": {  # root logger
-            "handlers": ["console"],
+        "": {
             "level": os.getenv("LOG_LEVEL", "INFO"),
-            "propagate": True,
+            "handlers": ["console"],
         },
         "discord": {
-            "handlers": ["console"],
             "level": "INFO",
-            "propagate": False,
+            "handlers": ["console"],
+        },
+        "report_manager": {
+            "level": "INFO",
+            "handlers": ["console"],
         },
     }
 }
