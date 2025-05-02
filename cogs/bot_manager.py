@@ -15,7 +15,7 @@ class BotManager(commands.Cog):
         self.bot_message = utilities.load_json(settings.bot_message_template)
 
     @commands.hybrid_command(name="sync", help="sync <option>")
-    @commands.is_owner()
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def sync(self, ctx: commands.Context, option: str):
         """
         Sync commands with Discord. Use this when new command no show in Discord client.
@@ -58,7 +58,7 @@ class BotManager(commands.Cog):
             await ctx.send(self.bot_message["sync"]["e"])
 
     @commands.hybrid_command(name="shutdown", help="Shut down the bot.")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def shutdown(self, ctx: commands.Context):
         """
         Shut down the bot.
@@ -79,7 +79,7 @@ class BotManager(commands.Cog):
             await ctx.send(self.bot_message["shutdown"]["succeeded"])
 
     @commands.hybrid_command(name="loaded_cogs", help="Show loaded cogs.")
-    @commands.has_any_role(settings.guild["role"]["tester"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def loaded_cogs(self, ctx: commands.Context):
         """
         Show loaded cogs.
@@ -103,7 +103,7 @@ class BotManager(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.hybrid_command(name="set_activity", help="set_activity <name>")
-    @commands.is_owner()
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def set_activity(self, ctx: commands.Context, name: str):
         """
         Set the activity of the bot.

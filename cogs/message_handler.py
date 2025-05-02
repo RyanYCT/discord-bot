@@ -53,7 +53,7 @@ class MessageHandler(commands.Cog):
         return random.randint(1, 100) <= percent
 
     @commands.hybrid_command(name="forward", description="forward <message>")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def forward(self, ctx: commands.Context, *, message: str):
         """
         Forward a message to the current channel and send an ephemeral confirmation.
@@ -73,7 +73,7 @@ class MessageHandler(commands.Cog):
             logger.exception("Failed to forward message: %s", e)
 
     @commands.hybrid_command(name="react_emoji", description="react_emoji <message_id> <number_of_option>")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def react_emoji(self, ctx: commands.Context, message_id, number_of_option):
         """
         React emoji on a message.
@@ -118,7 +118,7 @@ class MessageHandler(commands.Cog):
                 logger.exception("Failed to send announcement: %s", e)
 
     @commands.hybrid_command(name="announce", description="send a predefine embed announcement")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def announce(self, ctx: commands.Context):
         """
         Send an embed message to the current channel and send an ephemeral confirmation.
@@ -149,7 +149,7 @@ class MessageHandler(commands.Cog):
             logger.exception("Failed to send announcement: %s", e)
 
     @commands.hybrid_command(name="edit_embed", description="edit to a embed message")
-    @commands.has_any_role(settings.guild["role"]["admin"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def edit_embed(self, ctx: commands.Context, message_id):
         """
         Edit the specified embed message with a draft file.

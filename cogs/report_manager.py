@@ -227,7 +227,7 @@ class ReportManager(commands.Cog):
             logger.error("Missing required field in data: %s", ke)
 
     @commands.hybrid_command(name="report", description="report <report_type> [category] [name] [enhance] [period]")
-    @commands.has_any_role(settings.guild["role"]["doge"]["id"])
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"], settings.guild["role"]["doge"]["id"])
     async def report(self, ctx: commands.Context, report_type: str, category: str = None, name: str = None, enhance: str = None, period: str = None) -> None:
         """
         Fetches the latest report from the API server and sends it as an embedded message.

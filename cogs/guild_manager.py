@@ -15,7 +15,7 @@ class GuildManager(commands.Cog):
         self.bot_message = utilities.load_json(settings.bot_message_template)
 
     @commands.hybrid_command(name="audit_log", help="audit_log <number of rows>")
-    @commands.is_owner()
+    @commands.has_any_role(settings.guild["role"]["admin"]["id"], settings.guild["role"]["tester"]["id"])
     async def audit_log(self, ctx: commands.Context, number: int):
         """
         Retrieves the latest audit log entries for the guild.
